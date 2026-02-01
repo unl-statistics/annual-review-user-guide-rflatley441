@@ -1,6 +1,28 @@
 # Topic
 
-Pick some subset of the information covered in your annual review article that you are interested in exploring in more detail. 
+## Proposed User Guide Topic
 
-Identify the scope of your user guide - what will you cover? Specific software packages? When to use or not to use a specific technique?
+**How to construct a D-optimal experimental design when observations are correlated using a known covariance structure**
+
+## Scope of the user guide
+
+This user guide will explain how to:
+
+- Recognize when correlated observations invalidate standard optimal design approaches
+- Incorporate a known covariance matrix into the Fisher Information Matrix 
+- Construct and evaluate a D-optimal exact design for correlated data
+- Understand why continuous designs and equivalence theorems no longer apply in this setting
+- Implement the design conceptually (and computationally) for time- or space-correlated data
+
+The guide will focus specifically on linear models with normally distributed, homoscedastic responses and a known correlation structure, which is one of the most relevant and challenging cases discussed in the review 
+
+When to use or not use: The guide assumes users understand basic regression and confidence intervals but are not experts in optimal design for correlated data. It avoids the too abstract theory while still being advanced enough. It does not cover specific software packages in detail but emphasizes a step-by-step conceptual workflow that can be implemented computationally.
+
+## Why this is a good subset
+
+- It is narrow enough to be a true how-to" manual.
+- It addresses a core problem emphasized by López-Fidalgo & Wong: optimal design theory for uncorrelated data does not extend cleanly to correlated settings (optimal designs for correlated …).
+- It aligns well with the assumption that users understand basic regression and confidence intervals but are not experts in optimal design for correlated data.
+
+This user guide focuses on constructing D-optimal exact designs for linear regression models with correlated observations when the covariance structure is known. Unlike classical optimal design problems with independent errors, correlated data require modifying the Fisher Information Matrix and abandoning continuous design theory. This guide provides a step-by-step conceptual workflow for identifying, computing, and evaluating D-optimal designs in this setting.
 
