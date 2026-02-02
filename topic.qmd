@@ -2,27 +2,31 @@
 
 ## Proposed User Guide Topic
 
-**How to construct a D-optimal experimental design when observations are correlated using a known covariance structure**
+How to construct a D-optimal experimental design when observations are correlated using a known covariance structure
 
 ## Scope of the user guide
 
 This user guide will explain how to:
 
 - Recognize when correlated observations invalidate standard optimal design approaches
-- Incorporate a known covariance matrix into the Fisher Information Matrix 
+- Incorporate a known covariance matrix into the Fisher Information Matrix (FIM)
 - Construct and evaluate a D-optimal exact design for correlated data
 - Understand why continuous designs and equivalence theorems no longer apply in this setting
-- Implement the design conceptually (and computationally) for time- or space-correlated data
+- Implement the design in R for time- or space-correlated data (building the FIM, searching over candidate designs, and evaluating design quality with reproducible code)
 
-The guide will focus specifically on linear models with normally distributed, homoscedastic responses and a known correlation structure, which is one of the most relevant and challenging cases discussed in the review 
+The guide will focus specifically on linear models with normally distributed, homoscedastic responses and a known correlation structure, which is one of the most practically relevant and theoretically challenging cases discussed in the review (optimal designs for correlated …).
 
-When to use or not use: The guide assumes users understand basic regression and confidence intervals but are not experts in optimal design for correlated data. It avoids the too abstract theory while still being advanced enough. It does not cover specific software packages in detail but emphasizes a step-by-step conceptual workflow that can be implemented computationally.
+Assumed background: Readers have a working knowledge of R (e.g., fitting linear models, working with matrices, writing simple functions and loops) and understand basic regression and confidence intervals. They are not assumed to be experts in optimal design for correlated data. The guide emphasizes practical implementation—each conceptual step is paired with R code (e.g., defining covariance structures, assembling the FIM, and running a design search) so that users can adapt the workflow to their own correlation models and design spaces.
+
+When to use or not use: The guide avoids the most abstract theory (e.g., non-Gaussian processes or KL-optimal discrimination) while still being advanced. It is intended for analysts who have (or can specify) a known correlation structure and want to construct and evaluate D-optimal exact designs in R.
 
 ## Why this is a good subset
 
-- It is narrow enough to be a true how-to" manual.
+- It is narrow enough to be a true "how-to" manual with a clear implementation path in R.
 - It addresses a core problem emphasized by López-Fidalgo & Wong: optimal design theory for uncorrelated data does not extend cleanly to correlated settings (optimal designs for correlated …).
-- It aligns well with the assumption that users understand basic regression and confidence intervals but are not experts in optimal design for correlated data.
+- A practical, R-oriented focus makes the theory actionable for applied researchers and aligns with the assumed R background.
 
-This user guide focuses on constructing D-optimal exact designs for linear regression models with correlated observations when the covariance structure is known. Unlike classical optimal design problems with independent errors, correlated data require modifying the Fisher Information Matrix and abandoning continuous design theory. This guide provides a step-by-step conceptual workflow for identifying, computing, and evaluating D-optimal designs in this setting.
+## Example framing for the assignment
+
+This user guide focuses on constructing D-optimal exact designs for linear regression models with correlated observations when the covariance structure is known. Unlike classical optimal design problems with independent errors, correlated data require modifying the Fisher Information Matrix and abandoning continuous design theory. The guide provides a step-by-step workflow that pairs the underlying ideas with practical R implementation—so readers with a working knowledge of R can identify, compute, and evaluate D-optimal designs in their own setting.
 
