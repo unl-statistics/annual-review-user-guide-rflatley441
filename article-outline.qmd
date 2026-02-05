@@ -1,0 +1,232 @@
+# Reverse Outline — *Optimal Designs for Correlated Data*
+
+*(López-Fidalgo & Wong, Annual Review of Statistics and Its Application, 2026)*
+
+---
+
+## 1. Introduction
+
+### 1.1 Background on Optimal Experimental Design
+
+- Optimal design selects covariate combinations to maximize an optimality criterion.
+- Motivated by efficiency: minimize cost, maximize inferential precision.
+- Classic example: dose–response studies (optimal doses, allocation, sample size distribution).
+
+### 1.2 Dominance of Uncorrelated Design Theory
+
+- Most existing work assumes independent observations.
+- Theoretical tools (e.g., equivalence theorems, FIM properties) rely on independence.
+
+### 1.3 Motivation for Correlated Data Designs
+
+- Correlation arises in:
+  - Longitudinal studies
+  - Time series
+  - Spatial data
+  - Cluster trials
+  - Computer experiments (Gaussian processes)
+
+### 1.4 Gaps in Existing Literature
+
+- Design theory for correlated data lags behind estimation theory.
+- Requires approximations to the information matrix.
+- Lacks general optimality-verification tools.
+
+### 1.5 Scope and Contribution of the Review
+
+- Extends prior reviews to:
+  - Nonlinear correlated models
+  - Unknown covariance parameters
+  - Nugget effects
+- Provides examples and algorithmic strategies.
+
+---
+
+## 2. Optimal Design Theory for Uncorrelated Observations
+
+### 2.1 Linear Model Framework
+
+- Standard form: \(y = f^T(x)\theta + \varepsilon\)
+- Assumptions: normality, independence, constant variance.
+
+### 2.2 Examples of Linear Models
+
+- Polynomial regression
+- Fractional polynomials
+- Interaction models
+
+### 2.3 Design Objectives
+
+- Estimate parameters efficiently.
+- Estimate functions of parameters (e.g., turning points, benchmark doses).
+
+### 2.4 Information Matrix & Inference Quality
+
+- Information matrix: \(X^TX\)
+- Inverse relates to estimator covariance.
+- Larger information → more precise inference.
+
+### 2.5 Exact Designs
+
+- Finite set of support points.
+- Replication structure.
+- Additivity of information matrices.
+
+### 2.6 Continuous Designs
+
+- Probability measures over design space.
+- Easier optimization due to convexity.
+
+### 2.7 Advantages of Continuous Designs
+
+- Convex optimization framework.
+- Carathéodory bound on support points.
+- Approximation to implementable exact designs.
+
+### 2.8 General Equivalence Theorem (GET)
+
+- Provides optimality verification.
+- Uses directional derivatives.
+- Sensitivity function confirms optimality graphically.
+
+### 2.9 Nonlinear Models (Uncorrelated)
+
+- Information matrix depends on unknown parameters.
+- Solutions: locally optimal designs, Bayesian designs, minimax/maximin designs.
+
+### 2.10 Model Misspecification
+
+- Non-normality, heteroscedasticity, correlation.
+- Modified FIM still supports asymptotic inference.
+
+---
+
+## 3. Optimal Design Theory for Correlated Observations
+
+### 3.1 Fundamental Challenges
+
+- FIM no longer approximates estimator covariance well.
+- CLT may fail for nonlinear correlated models.
+
+### 3.2 Early and Foundational Work
+
+- Stochastic processes (Sacks & Ylvisaker).
+- Spatial design (Müller).
+- Numerical optimization approaches.
+
+### 3.3 Cost of Ignoring Correlation
+
+#### 3.3.1 Design Differences
+
+- Optimal designs differ greatly with correlation.
+
+#### 3.3.2 Empirical Example
+
+- Irish wind dataset: optimal time allocations shift under correlation.
+
+#### 3.3.3 Efficiency Loss
+
+- Misspecified correlation can reduce efficiency to &lt;10%.
+
+### 3.4 Known vs Unknown Correlation Structures
+
+#### 3.4.1 Known Covariance
+
+- Covariance of estimators uses \(X^T \Sigma^{-1} X\).
+- Continuous design tools no longer apply.
+
+#### 3.4.2 Unknown Covariance
+
+- Requires joint likelihood modeling.
+- Generalized FIM formulation.
+
+### 3.5 Modeling Covariance Structures
+
+#### 3.5.1 Isotropic Covariance
+
+- Depends on distance between design points.
+
+#### 3.5.2 Common Families
+
+- Matérn, Dagum, Cauchy
+
+#### 3.5.3 Positive Definiteness Constraints
+
+- Required for valid covariance matrices.
+
+### 3.6 Nugget Effect
+
+- Adds variance discontinuity at zero distance.
+- Accounts for micro-scale variability.
+
+### 3.7 Applied Design Examples
+
+#### 3.7.1 Growth Curve (Heifer Weight)
+
+- Nonlinear model + exponential covariance.
+- D-optimal weighing schedule derived.
+
+#### 3.7.2 Radioactive Particle Retention
+
+- Optimal sampling times depend on covariance threshold behavior.
+
+---
+
+## 4. Applications
+
+### 4.1 Non-Gaussian Stochastic Processes
+
+- Poisson and Markov retention models.
+- Gaussian approximations may fail.
+
+### 4.2 Equivalence Theorems Extensions
+
+#### 4.2.1 Virtual Noise Method
+
+- Adds artificial noise.
+- Restores convexity for approximate designs.
+
+#### 4.2.2 Location Models
+
+- Specialized equivalence theorem results.
+
+### 4.3 Time Series Designs
+
+- AR(1) and extensions.
+- Design depends on initial observation knowledge.
+
+### 4.4 Model Discrimination
+
+#### 4.4.1 Motivation
+
+- Competing models may fit equally well.
+
+#### 4.4.2 KL-Optimality Criterion
+
+- Maximizes Kullback–Leibler distance.
+
+#### 4.4.3 Gaussian Process Discrimination
+
+- Includes covariance differences.
+
+#### 4.4.4 Growth Model Case Study
+
+- Richards vs Brody model discrimination.
+
+---
+
+## 5. Algorithms for Optimal Design
+
+### 5.1 Need for Computational Methods
+
+- Analytical solutions limited.
+- High-dimensional optimization challenges.
+
+### 5.2 Exchange Algorithms
+
+- Iteratively swap design points.
+- Search for optimal exact designs.
+
+### 5.3 Metaheuristic Algorithms
+
+- Nature-inspired methods recommended for complex criteria.
