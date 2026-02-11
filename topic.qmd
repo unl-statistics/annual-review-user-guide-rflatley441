@@ -30,3 +30,12 @@ When to use or not use: The guide avoids the most abstract theory (e.g., non-Gau
 
 This user guide focuses on constructing D-optimal exact designs for linear regression models with correlated observations when the covariance structure is known. Unlike classical optimal design problems with independent errors, correlated data require modifying the Fisher Information Matrix and abandoning continuous design theory. The guide provides a step-by-step workflow that pairs the underlying ideas with practical R implementation—so readers with a working knowledge of R can identify, compute, and evaluate D-optimal designs in their own setting.
 
+
+::: callout-note
+# Comments/suggestions
+
+I'll be honest, I didn't expect a project that went into Fisher Information from an undergrad class. D-optimality isn't something I've seen much, even as a grad student (or since), but that's probably because I'm not an experimental design person. 
+
+In any case, please take care to create good, accessible explanations that your classmates will understand - this is particularly important with a topic that's more complicated and delicate. 
+
+:::
