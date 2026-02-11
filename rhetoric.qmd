@@ -1,0 +1,20 @@
+---
+title: "Rhetorical Analysis of Optimal Designs for Correlated Data"
+author: "Ryan Flatley"
+format:
+  html:
+    toc: false
+bibliography: references.bib
+---
+
+L{\'o}pez-Fidalgo and Wong build their review around a persuasive gap statement: correlated data are common, yet optimal design methodology for correlated settings lags behind the (much more mature) design theory for uncorrelated responses [@LopezFidalgoWong2026]. Opening with this claim is a deliberate rhetorical choice because it immediately establishes a reason the reader should care without needing specialized background. They reinforce urgency by pairing breadth (“small and big data”) with a concrete list of real-world contexts (time series, longitudinal data, spatial and spatiotemporal settings), which helps a broad statistics audience recognize their own work in the problem.
+
+A second key choice is how they construct logos through contrast. The paper first reminds readers why uncorrelated-design theory is attractive: additivity of information, convexity of the design space, and the usefulness of equivalence theorems for verifying optimality. Only after anchoring those familiar tools do they show what breaks under correlation—nonadditivity, loss of continuous-design machinery, and weaker connections between Fisher information and estimator uncertainty [@LopezFidalgoWong2026]. This structure makes the argument feel inevitable rather than opinion-based.
+
+They also strengthen claims with strategic, high-impact evidence instead of drowning the reader in examples. For instance, the discussion of the “cost of ignoring correlation” uses an efficiency drop to 7.68% as a vivid quantitative anchor that communicates stakes more effectively than a purely verbal warning [@LopezFidalgoWong2026]. That number is rhetorically powerful because it translates a modeling choice into something that looks like wasted sample size and wasted budget.
+
+Finally, the authors’ tone balances humility and direction. They repeatedly concede limitations—extra technical assumptions, imperfect asymptotics for nonlinear correlated models, and the absence of general-purpose optimality checks—while still offering a path forward via algorithms and, notably, nature-inspired metaheuristics [@LopezFidalgoWong2026]. This combination reads as credible rather than salesy: they acknowledge why the field is hard, then propose a pragmatic strategy for making progress.
+
+Overall, the arguments are effectively constructed because the paper moves from motivation to broken theory to practical consequences to actionable recommendations. The reader is left with both a conceptual map of the landscape and a justified reason to adopt computational methods when classical theory no longer supplies clean guarantees.
+
+## References
