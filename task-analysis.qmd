@@ -12,7 +12,7 @@ This task analysis focuses on constructing a D-optimal exact design for a linear
 
 - Software and computational setup
   - A working installation of R and an editor/IDE (e.g., RStudio, VS Code).
-  - Ability to install and load common R packages (e.g., `Matrix` or similar for efficient linear algebra; potentially a package that helps work with correlation structures if desired).
+  - Ability to install and load common R packages (e.g., `Matrix` or similar for efficient linear algebra; or a package that helps work with correlation structures if wanted).
   - Comfort writing small R functions, using loops or apply-family functions, and inspecting matrices.
 
 - Problem-specific information
@@ -66,7 +66,7 @@ At a high level, constructing a D-optimal exact design with correlated observati
      - An index/weight vector over a finite grid of candidate points that sums to the total sample size.
 
 5. Search for D-optimal designs
-   - Choose a **search strategy**, such as:
+   - Choose a search strategy, such as:
      - Greedy or coordinate-exchange algorithms that add, swap, or delete points.
      - Stochastic/metaheuristic methods (e.g., simulated annealing) if the design space is large or multimodal.
    - Implement the search in R:
@@ -131,8 +131,8 @@ After running the search algorithm once, users will have a **first draft** desig
 
 Based on answers to these questions, users may need to:
 
-- Adjust the **design space** (e.g., expand the range, refine the grid, or add practically important candidate points).
-- Retune the **search algorithm** (more iterations, additional restarts, or alternative local moves).
+- Adjust the design space (e.g., expand the range, refine the grid, or add practically important candidate points).
+- Retune the search algorithm (more iterations, additional restarts, or alternative local moves).
 - Revisit assumptions about the **covariance structure** if the design appears overly sensitive to particular parameter values.
 
-The final step of the task is not just accepting whatever design the algorithm proposes, but using these evaluations to reach a design that is both **statistically defensible** and **practically workable**.
+The final step of the task is not just accepting whatever design the algorithm proposes, but using these evaluations to reach a design that is both defensible statistically and alsop workable

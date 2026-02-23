@@ -21,7 +21,7 @@ In short, users need a guided bridge between the theory in López-Fidalgo and Wo
 
 ### Likely pain points and tricky concepts
 
-Several parts of this task are conceptually or computationally delicate:
+Several parts of this task are tricky:
 
 - Recognizing the impact of correlation: Users may intuit that “correlation matters,” but the magnitude of the efficiency loss from ignoring it (e.g., the dramatic 7.68% efficiency example in the review) is not obvious without explicit calculations. The guide needs to make that invisible cost concrete.
 - Specifying the covariance structure: Choosing a form (AR(1), exponential, Matérn, etc.) and its parameters is nontrivial. Even when the form is supplied by subject-matter experts, users may be unsure how to:
