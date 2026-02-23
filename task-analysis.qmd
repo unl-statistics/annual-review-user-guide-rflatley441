@@ -31,7 +31,7 @@ Because the user guide focuses on linear models with normally distributed respon
 - Correlation structure
   - The user must be able to specify a parametric covariance function that:
     - Takes a set of design points (e.g., times or locations) as input.
-    - Returns a **positive-definite** covariance matrix \(\Sigma(\xi)\).
+    - Returns a positive-definite covariance matrix \(\Sigma(\xi)\).
   - Parameters of the covariance function (e.g., \(\rho\), range, sill) should be treated as known or fixed for the purpose of the design.
 
 - Missing data and range constraints
@@ -88,7 +88,7 @@ Each of these components corresponds to one or more sections in the user guide, 
 
 ### On-the-fly user decisions
 
-While following the guide, users must be prepared to make several decisions that may not have unique “right” answers:
+While following the guide, users should also be read to make decisions that may not have the completly right answers:
 
 - **Choosing the covariance model and parameters**
   - Selecting among plausible correlation structures (AR(1) vs. exponential vs. Matérn) based on domain knowledge.
@@ -112,7 +112,7 @@ While following the guide, users must be prepared to make several decisions that
 
 The guide should surface these decision points explicitly and, where possible, offer heuristics or example defaults rather than pretending the choices are automatic.
 
-### Evaluating and refining the “first draft” design
+### Evaluating and refining the first draft design
 
 After running the search algorithm once, users will have a **first draft** design. At this stage, they should ask:
 

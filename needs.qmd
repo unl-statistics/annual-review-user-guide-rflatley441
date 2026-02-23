@@ -68,9 +68,8 @@ Several categories of resources touch on optimal design and correlated data, but
 
 The user guide responds to these gaps by:
 
-- Targeting readers who already know basic R and regression but are new to **design under correlation**.
-- Walking through a **single, coherent example** from model specification to final design, with all intermediate matrices and decisions made explicit.
-- Providing **annotated R code** that users can copy, run, and adapt, rather than only high-level descriptions of algorithms.
+- Targeting readers who already know basic R and regression but are new to design under correlation.
+- Providing annotated R code that users can copy, run, and adapt, rather than only high-level descriptions of algorithms.
 
 By doing so, the guide aims to make a specialized research topic—D-optimal exact designs with correlated observations and a known covariance structure—accessible and usable for classmates who may never have seen Fisher information or D-optimality in practice.
 
