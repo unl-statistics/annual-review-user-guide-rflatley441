@@ -1,9 +1,76 @@
 # Needs Assessment {.appendix}
 
-What does someone trying to accomplish your chosen task need help with? 
+### What users are trying to accomplish
 
-What parts are likely to be tricky? 
+The user guide is aimed at an applied statistics audience (advanced undergraduates, graduate students, or practitioners) who:
 
-What resources are already available on this topic that may be helpful? Look for e.g. software vignettes, package documentation, papers about software packages, and so on.
+- **Already fit linear models in R**, understand regression coefficients, and interpret confidence intervals.
+- **Know that their data are correlated** (e.g., longitudinal measurements on the same subject, time series, or spatial locations) and have at least a plausible parametric form for the covariance structure.
+- **Want to design a new study**—choose when and where to observe, or which experimental settings to run—so that parameter estimates are as precise as possible under correlation.
 
+What they need help with is translating the abstract idea of “D-optimal design with correlated observations and a known covariance structure” into a concrete, reproducible workflow:
+
+- Deciding **when correlation is strong enough that classical i.i.d. design tools break down** and it is worth doing something more sophisticated.
+- Writing down the **linear model, parameter vector, and design space** in a way that can be encoded in R.
+- Turning a **verbal description of correlation** (e.g., AR(1) in time, exponential in space) into an actual **covariance matrix \(\Sigma(\xi)\)** that depends on the proposed design \(\xi\).
+- Building the **Fisher Information Matrix for correlated data**, \(M(\xi) = X(\xi)^\top \Sigma(\xi)^{-1} X(\xi)\), and understanding why this differs from the usual \(X^\top X\) formula.
+- Implementing a **search over candidate exact designs** (finite collections of design points with integer replication counts) that approximately maximize \(\det M(\xi)\).
+- **Evaluating and comparing designs** (e.g., via relative D-efficiency) in a way that makes sense when continuous design theory and equivalence theorems no longer apply.
+
+In short, users need a guided bridge between the theory in López-Fidalgo and Wong’s review and a step-by-step R script they can adapt to their own correlated-data setting.
+
+### Likely pain points and tricky concepts
+
+Several parts of this task are conceptually or computationally delicate:
+
+- **Recognizing the impact of correlation**: Users may intuit that “correlation matters,” but the magnitude of the efficiency loss from ignoring it (e.g., the dramatic 7.68% efficiency example in the review) is not obvious without explicit calculations. The guide needs to make that invisible cost concrete.
+- **Specifying the covariance structure**: Choosing a form (AR(1), exponential, Matérn, etc.) and its parameters is nontrivial. Even when the form is supplied by subject-matter experts, users may be unsure how to:
+  - Translate it into an R function that takes a set of design points and returns a positive-definite covariance matrix.
+  - Check that the resulting \(\Sigma(\xi)\) is numerically well-behaved (invertible, not ill-conditioned).
+- **Working with matrix expressions under correlation**: Moving from \(M = X^\top X\) to \(M = X^\top \Sigma^{-1} X\) introduces:
+  - Extra matrix inversions (or solves) that can be numerically unstable for poorly chosen designs.
+  - A loss of simple geometric intuition; users may not immediately see how changing design points reshapes \(\det M(\xi)\).
+- **Abandoning continuous-design theory**: Many optimal design introductions lean heavily on:
+  - Continuous design measures instead of exact, integer-valued designs.
+  - Equivalence theorems that certify optimality.
+  In the correlated case, these tools weaken or disappear. Users must instead accept **computational search with no simple optimality certificate**, which can feel unsatisfying or untrustworthy without careful explanation.
+- **Tuning and trusting search algorithms**: Practical D-optimal design for correlated data often relies on heuristic or metaheuristic algorithms (e.g., coordinate-exchange, simulated annealing, genetic algorithms). Users need:
+  - A clear description of what the algorithm is doing at a high level.
+  - Sensible defaults for tuning parameters (iterations, step sizes, restart strategies).
+  - Diagnostics to judge whether the algorithm has likely found a good design, rather than getting stuck in a local optimum.
+- **Interpreting design quality**: Without equivalence theorems, evaluation focuses on:
+  - Comparing \(\log \det M(\xi)\) across candidate designs.
+  - Computing relative D-efficiency versus a benchmark.
+  Users may struggle to interpret what constitutes a “meaningfully better” design in terms of power, precision, or required sample size.
+
+The guide must therefore slow down at these points, providing intuition, visualizations (where possible), and R code that makes the abstract objects (covariance matrices, information matrices, determinants) tangible.
+
+### Existing resources and their gaps
+
+Several categories of resources touch on optimal design and correlated data, but each leaves a gap that the user guide is meant to fill:
+
+- **The López-Fidalgo and Wong review itself**:
+  - Strengths: It clearly motivates why optimal design for correlated data is important, highlights the breakdown of classical theory, and surveys algorithmic approaches (including nature-inspired metaheuristics).
+  - Limitations for our target user: It is written as a research-level review, not a hands-on tutorial. Key steps—constructing \(\Sigma(\xi)\), coding the information matrix, and implementing a search in R—are not spelled out at the level of a lab notebook.
+- **General optimal design textbooks and articles**:
+  - Often provide accessible introductions to D-optimality and continuous designs for uncorrelated errors.
+  - Typically assume independence, so the formulas and examples do not transfer directly once correlation is present.
+  - When correlation is mentioned, it may be treated briefly or in highly theoretical form, with limited computational guidance.
+- **R package vignettes and documentation**:
+  - Packages for correlated data (e.g., mixed-effects or generalized least squares models) explain how to **fit** models with correlation structures, but not how to **design** experiments under those structures.
+  - Some optimal design packages exist, but many:
+    - Focus on uncorrelated settings.
+    - Assume specialized background knowledge to adapt them to correlated data.
+    - Provide example scripts without clearly connecting each coding step to the underlying design criterion.
+- **Research papers on metaheuristic and algorithmic design search**:
+  - Demonstrate that heuristic search can work well in correlated settings.
+  - Are often implementation-light, leaving the reader to reconstruct algorithms in their own environment.
+
+The user guide responds to these gaps by:
+
+- Targeting readers who already know basic R and regression but are new to **design under correlation**.
+- Walking through a **single, coherent example** from model specification to final design, with all intermediate matrices and decisions made explicit.
+- Providing **annotated R code** that users can copy, run, and adapt, rather than only high-level descriptions of algorithms.
+
+By doing so, the guide aims to make a specialized research topic—D-optimal exact designs with correlated observations and a known covariance structure—accessible and usable for classmates who may never have seen Fisher information or D-optimality in practice.
 

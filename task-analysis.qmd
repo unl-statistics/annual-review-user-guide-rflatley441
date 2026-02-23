@@ -1,27 +1,138 @@
-
 # Task Analysis {.appendix}
 
-Here are some questions to guide you through the process of doing a task analysis. You don't have to specifically answer each one of these (and some may not apply), but they should get you started thinking in the right direction. 
+This task analysis focuses on constructing a D-optimal exact design for a linear model with correlated observations when the covariance structure is known, and implementing the workflow in R.
 
-What are the prerequisites, for both knowledge and e.g. software setup? 
+### Prerequisites
 
-What are the basic requirements for any data that the method is used on? 
-  - Are missing values allowed? 
-  - Should the data be confined within a certain range? 
-  - Does the data have to be approximately normally distributed? 
+- **Conceptual/statistical knowledge**
+  - Comfort with **linear regression models** (design matrices, regression coefficients, residuals).
+  - Understanding of **variance–covariance matrices** and the idea of **correlated errors** (e.g., repeated measurements on the same subject, time series, spatial correlation).
+  - Familiarity with the **Fisher Information Matrix** at least at a high level, and with the idea that **D-optimality** maximizes \(\det M(\xi)\) to minimize the volume of the confidence ellipsoid for parameters.
+  - Basic grasp of **matrix operations** (transpose, inverse, determinant, Cholesky factorization) and numerical stability issues.
 
-What are the basic components of the task?
-  - Outline these in a bit more detail
+- **Software and computational setup**
+  - A working installation of **R** and an editor/IDE (e.g., RStudio, VS Code).
+  - Ability to install and load common R packages (e.g., `Matrix` or similar for efficient linear algebra; potentially a package that helps work with correlation structures if desired).
+  - Comfort writing small R functions, using loops or apply-family functions, and inspecting matrices.
 
+- **Problem-specific information**
+  - A clearly specified **linear model**: response, predictors, and the parameter vector \(\beta\) of interest.
+  - A definition of the **design space**: which time points, spatial locations, or experimental settings are **eligible** for sampling (e.g., a finite grid of candidate times or locations).
+  - A **known or assumed covariance structure** for the errors, with parameters either fixed from prior work or chosen as a working model (e.g., AR(1) with known \(\rho\), exponential correlation with known range parameter).
 
-What decisions does the user need to be prepared to make on the fly?
+### Data and model requirements
 
-What questions should the user ask of the "first draft" of the product? What adjustments may need to be made?
+Because the user guide focuses on linear models with normally distributed responses and known covariance structure:
 
+- **Response type and distribution**
+  - The method assumes an approximately **Gaussian** response with **homoscedastic** variance, so that the Fisher information derivations are appropriate.
+  - Moderate deviations from normality may be tolerable in practice, but heavy tails or strong skewness are not the main target.
 
-## Additional Guidance 
+- **Correlation structure**
+  - The user must be able to specify a **parametric covariance function** that:
+    - Takes a set of design points (e.g., times or locations) as input.
+    - Returns a **positive-definite** covariance matrix \(\Sigma(\xi)\).
+  - Parameters of the covariance function (e.g., \(\rho\), range, sill) should be treated as known or fixed for the purpose of the design.
 
-Your check-in should answer these basic questions (and similar concerns that apply more directly to your topic). 
+- **Missing data and range constraints**
+  - The design construction itself assumes **no missing outcomes** in the planned experiment; missingness is a downstream analysis issue, not part of the design criterion.
+  - The candidate design points must lie within **feasible ranges** (e.g., physically possible times or locations, allowable experimental settings).
+  - It is helpful if predictors are on reasonable scales to avoid numerical issues when forming \(X(\xi)\) and \(\Sigma(\xi)\).
 
-Once you've completed the check-in, you can use this section to jump-start an introduction/set-up/getting started section in your user guide. 
-This document should remain as an appendix to your main report. 
+### Basic components and steps of the task
+
+At a high level, constructing a D-optimal exact design with correlated observations involves the following components:
+
+1. **Formalize the model and design space**
+   - Write down the linear model \(y = X(\xi)\beta + \varepsilon\), specifying:
+     - The parameter vector \(\beta\) whose precision you care about.
+     - The candidate set of design points (e.g., discrete time grid or spatial lattice).
+   - Encode the mapping from a set of design points to the **design matrix** \(X(\xi)\) in R.
+
+2. **Define the covariance structure**
+   - Choose an appropriate **correlation model** (e.g., AR(1), exponential, Matérn) based on the scientific context.
+   - Write an R function that, given a set of design points, returns the corresponding **covariance matrix** \(\Sigma(\xi)\).
+   - Verify numerically that \(\Sigma(\xi)\) is positive-definite and reasonably well-conditioned for plausible designs.
+
+3. **Construct the Fisher Information Matrix under correlation**
+   - Implement the formula \(M(\xi) = X(\xi)^\top \Sigma(\xi)^{-1} X(\xi)\) using:
+     - Efficient linear algebra (e.g., solving \(\Sigma(\xi)^{-1} X(\xi)\) via a Cholesky factorization rather than explicitly computing \(\Sigma(\xi)^{-1}\)).
+   - Write a function that takes a proposed exact design \(\xi\) and returns **\(\log \det M(\xi)\)**, which is numerically more stable than \(\det M(\xi)\) itself.
+
+4. **Specify the space of exact designs**
+   - Decide how many **observations** are allowed in total (sample size budget).
+   - Represent an exact design as:
+     - A collection of design points with integer replication counts, or
+     - An index/weight vector over a finite grid of candidate points that sums to the total sample size.
+
+5. **Search for D-optimal designs**
+   - Choose a **search strategy**, such as:
+     - Greedy or coordinate-exchange algorithms that add, swap, or delete points.
+     - Stochastic/metaheuristic methods (e.g., simulated annealing) if the design space is large or multimodal.
+   - Implement the search in R:
+     - Initialize from one or more reasonable starting designs.
+     - Iteratively propose small changes to the design, recompute \(\log \det M(\xi)\), and accept changes that improve (or sometimes probabilistically worsen) the criterion.
+     - Track the best design found and the trajectory of criterion values.
+
+6. **Evaluate and compare candidate designs**
+   - For the final design(s), compute:
+     - \(\log \det M(\xi)\) and, if relevant, **relative D-efficiency** compared to a benchmark (e.g., a naive design that ignores correlation).
+     - Any additional diagnostics, such as approximate standard errors for key parameters under each design.
+   - Optionally visualize designs (e.g., plots of sampling times or locations) to ensure they are scientifically reasonable.
+
+7. **Document and export the design**
+   - Summarize the chosen design as a table or data frame suitable for use when actually running the experiment.
+   - Record the R code and parameter settings used so that the design process is reproducible.
+
+Each of these components corresponds to one or more sections in the user guide, with code examples and narrative explanations tying them together.
+
+### On-the-fly user decisions
+
+While following the guide, users must be prepared to make several decisions that may not have unique “right” answers:
+
+- **Choosing the covariance model and parameters**
+  - Selecting among plausible correlation structures (AR(1) vs. exponential vs. Matérn) based on domain knowledge.
+  - Fixing or eliciting parameter values (e.g., correlation strength or range) from prior data, expert judgment, or sensitivity analysis.
+
+- **Defining the design space and constraints**
+  - Deciding which times or locations are practically feasible (e.g., measurement windows, spatial accessibility).
+  - Determining the total sample size and any restrictions on how points can be clustered or spaced.
+
+- **Balancing computational cost vs. thoroughness**
+  - Choosing how dense the candidate grid of design points should be.
+  - Tuning search-algorithm settings (number of iterations, temperature schedules, number of restarts) to balance run time against the chance of finding a better design.
+
+- **Handling numerical issues**
+  - Deciding what to do if \(\Sigma(\xi)\) is nearly singular for some designs (e.g., rejecting such designs, adjusting the grid, or regularizing the covariance).
+  - Choosing between different numerical linear algebra strategies (e.g., Cholesky vs. eigen decomposition) when computing \(\log \det M(\xi)\).
+
+- **Interpreting trade-offs**
+  - Evaluating whether a modest gain in \(\log \det M(\xi)\) justifies using a design that is less convenient operationally (e.g., more irregular sampling times).
+  - Choosing which parameters are most important to estimate precisely, if some trade-offs in precision are unavoidable.
+
+The guide should surface these decision points explicitly and, where possible, offer heuristics or example defaults rather than pretending the choices are automatic.
+
+### Evaluating and refining the “first draft” design
+
+After running the search algorithm once, users will have a **first draft** design. At this stage, they should ask:
+
+- **Does the design make scientific and logistical sense?**
+  - Are measurements scheduled at times or locations that are feasible to implement?
+  - Does the design respect any ethical, budgetary, or operational constraints not encoded in the algorithm?
+
+- **How good is the design statistically?**
+  - How does \(\log \det M(\xi)\) compare to simple baseline designs (e.g., equally spaced times, uniform sampling over space)?
+  - What is the **relative D-efficiency** of the proposed design versus those baselines?
+  - Are the implied standard errors for key parameters acceptably small for the study’s goals?
+
+- **Is the result stable to small changes?**
+  - If the search is rerun with different random seeds or starting designs, do we obtain similar designs and criterion values?
+  - If the covariance parameters are perturbed slightly (e.g., range or \(\rho\) changed within a plausible interval), does the recommended design remain similar or at least comparably efficient?
+
+Based on answers to these questions, users may need to:
+
+- Adjust the **design space** (e.g., expand the range, refine the grid, or add practically important candidate points).
+- Retune the **search algorithm** (more iterations, additional restarts, or alternative local moves).
+- Revisit assumptions about the **covariance structure** if the design appears overly sensitive to particular parameter values.
+
+The final step of the task is not just accepting whatever design the algorithm proposes, but using these evaluations to reach a design that is both **statistically defensible** and **practically workable**.
