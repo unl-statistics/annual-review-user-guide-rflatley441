@@ -88,25 +88,25 @@ Each of these components corresponds to one or more sections in the user guide, 
 
 ### On-the-fly user decisions
 
-While following the guide, users should also be read to make decisions that may not have the completly right answers:
+While following the guide, users should also be ready to make decisions that may not have the completely right answers:
 
-- **Choosing the covariance model and parameters**
+- Choosing the covariance model and parameters:
   - Selecting among plausible correlation structures (AR(1) vs. exponential vs. Matérn) based on domain knowledge.
   - Fixing or eliciting parameter values (e.g., correlation strength or range) from prior data, expert judgment, or sensitivity analysis.
 
-- **Defining the design space and constraints**
+- Defining the design space and constraints:
   - Deciding which times or locations are practically feasible (e.g., measurement windows, spatial accessibility).
   - Determining the total sample size and any restrictions on how points can be clustered or spaced.
 
-- **Balancing computational cost vs. thoroughness**
+- Balancing computational cost vs. thoroughness:
   - Choosing how dense the candidate grid of design points should be.
   - Tuning search-algorithm settings (number of iterations, temperature schedules, number of restarts) to balance run time against the chance of finding a better design.
 
-- **Handling numerical issues**
+- Handling numerical issues:
   - Deciding what to do if \(\Sigma(\xi)\) is nearly singular for some designs (e.g., rejecting such designs, adjusting the grid, or regularizing the covariance).
   - Choosing between different numerical linear algebra strategies (e.g., Cholesky vs. eigen decomposition) when computing \(\log \det M(\xi)\).
 
-- **Interpreting trade-offs**
+- Interpreting trade-offs:
   - Evaluating whether a modest gain in \(\log \det M(\xi)\) justifies using a design that is less convenient operationally (e.g., more irregular sampling times).
   - Choosing which parameters are most important to estimate precisely, if some trade-offs in precision are unavoidable.
 
@@ -135,4 +135,4 @@ Based on answers to these questions, users may need to:
 - Retune the search algorithm (more iterations, additional restarts, or alternative local moves).
 - Revisit assumptions about the **covariance structure** if the design appears overly sensitive to particular parameter values.
 
-The final step of the task is not just accepting whatever design the algorithm proposes, but using these evaluations to reach a design that is both defensible statistically and alsop workable
+The final step of the task focuses on using these evaluations to reach a design that is both defensible statistically and also practically workable
