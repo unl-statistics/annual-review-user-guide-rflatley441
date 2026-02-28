@@ -20,12 +20,20 @@ This task analysis focuses on constructing a D-optimal exact design for a linear
   - A definition of the design space: which time points, spatial locations, or experimental settings are eligible for sampling (e.g., a finite grid of candidate times or locations).
   - A known or assumed covariance structure for the errors, with parameters either fixed from prior work or chosen as a working model (e.g., AR(1) with known \(\rho\), exponential correlation with known range parameter).
 
+::: callout-note
+
+You may want to spend a bit of time showing how to decide on the linear model, identify the design space, etc.
+
+I find it helpful to link to different options from the Big Book of R (google it) to provide some of the background knowledge.
+
+:::
+
 ### Data and model requirements
 
 Because the user guide focuses on linear models with normally distributed responses and known covariance structure:
 
 - Response type and distribution
-  - The method assumes an approximately Gaussian response with homoscedastic variance, so that the Fisher information derivations are appropriate.
+  - The method assumes an approximately Gaussian response with homoskedastic variance, so that the Fisher information derivations are appropriate.
   - Moderate deviations from normality may be tolerable in practice, but heavy tails or strong skewness are not the main target.
 
 - Correlation structure
