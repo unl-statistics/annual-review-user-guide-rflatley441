@@ -1,0 +1,122 @@
+
+1. Didn't compile because of a LaTeX error.
+
+[1/6] index.qmd
+[2/6] guide.qmd
+
+
+processing file: guide.qmd
+1/17
+2/17 [design-matrix]
+3/17
+4/17 [covariance-matrix]
+5/17
+6/17 [fim-and-logdet]
+7/17
+8/17 [exact-design-space]
+9/17
+10/17 [exchange-algorithm]
+11/17
+12/17 [evaluate-designs]
+13/17
+14/17 [export-design]
+15/17
+16/17 [design-visualization]
+17/17
+output file: guide.knit.md
+
+[WARNING] Citeproc: citation AtkinsonDonev1992 not found
+[WARNING] Citeproc: citation PinheiroBates2000 not found
+
+
+processing file: guide.qmd
+1/17
+2/17 [design-matrix]
+3/17
+4/17 [covariance-matrix]
+5/17
+6/17 [fim-and-logdet]
+7/17
+8/17 [exact-design-space]
+9/17
+10/17 [exchange-algorithm]
+11/17
+12/17 [evaluate-designs]
+13/17
+14/17 [export-design]
+15/17
+16/17 [design-visualization]
+17/17
+output file: guide.knit.md
+
+[3/6] references.qmd
+[4/6] topic.qmd
+[5/6] needs.qmd
+[6/6] task-analysis.qmd
+
+pandoc
+  to: latex
+  from: markdown+emoji
+  output-file: index.tex
+  standalone: true
+  toc: true
+  number-sections: true
+  top-level-division: chapter
+  pdf-engine: lualatex
+  variables:
+    graphics: true
+    tables: true
+  default-image-extension: pdf
+
+metadata
+  crossref:
+    chapters: true
+  documentclass: scrreprt
+  papersize: letter
+  classoption:
+    - DIV=11
+    - numbers=noendperiod
+  header-includes:
+    - \KOMAoption{captions}{tableheading}
+  block-headings: true
+  date: today
+  date-format: long
+  bibliography:
+    - references.bib
+  title: 'User Guide: Annual Review Article Topic'
+  author: Ryan Flatley
+
+[WARNING] Citeproc: citation AtkinsonDonev1992 not found
+[WARNING] Citeproc: citation PinheiroBates2000 not found
+
+Rendering PDF
+running lualatex - 1
+  This is LuaHBTeX, Version 1.22.0 (TeX Live 2025)
+   restricted system commands enabled.
+
+updating tlmgr
+
+updating existing packages
+ERROR:
+compilation failed- error
+Missing $ inserted.
+<inserted text>
+$
+l.345 ...t designs to (approximately) maximize (\det
+                                                   M(\xi)); and
+
+
+You may need to $ $ around an expression in this file.
+see /home/susan/Documents/Teaching/unl-stat349/student-assignments/annual-review-user-guide-submissions/annual-review-user-guide-rflatley441/index.log for more information.
+WARN: Error encountered when rendering files
+
+
+2. I did some find-replace to figure out that quarto likes $...$ rather than \(...\). I suspect it also prefers $$...$$ to \[...\].
+
+3. You need to use hierarchical headings, so don't go from # to ### or you'll get a 1.0.1 instead of 1.1 in your section numbering.
+
+4. It helps to use figure captions/labels so you can reference the figure number in the text. Look up how to accomplish that in quarto :).
+
+5. Additional resources including this "Quarto books: For building and customizing this report, see the Quarto book documentation."?
+
+6. Figure out why your refs aren't included in the references section and are instead at the bottom of each section.
