@@ -1,0 +1,326 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "User Guide: Annual Review Article Topic",
+    "section": "",
+    "text": "Assignment Flow\nThis project is set up to scaffold this user guide and set you up for success.\nStart at topic.qmd and identify a topic for your user guide.\nOnce you’ve proposed a topic and received my approval/feedback, you can convert the contents of topic.qmd into an introductory paragraph in your report. Please leave the topic.qmd file as an appendix, to document the different stages of this project.\nOnce we’ve agreed on a topic for your user guide, you will proceed to needs.qmd and task-analysis.qmd. Both will be submitted at the same check-in, and both will be included in your final report as appendices. You should be able to re-purpose most of the information in task-analysis.qmd to orient the user to different components of the task you’ve chosen.\nYour next step is to actually write the content that satisfies the work you outlined in task-analysis.qmd.\nOnce you’re finished with that, ideally, you’ll have plenty of time to edit and streamline your report. Feel free to trade reports with a friend and try to complete your friend’s task - this will help you both identify areas where the guide isn’t as clear. Try to complete the task with a different data set - that often helps find trouble spots.\nWhen you submit your final report, you may remove index.qmd from the _quarto.yml file, which will remove this chapter (which is quite unnecessary for your user) from the report. You should also take the time to make sure your name is listed as both author and copyright holder in the _quarto.yml file. Feel free to make a custom cover for your manual if you would like to do so. You can also tweak the CSS/theme for the book, so long as you’re conscious of accessibility concerns.\n\n\n\n\n\n\nCautionBuilding the report\n\n\n\nIf you are using RStudio to complete this report, you can hit (Ctrl/Cmd)-Shift-B to build the whole report. You can also type quarto render . on the command line in the project folder to accomplish the same thing.\nIf you have questions about how to customize or debug your book, it may be helpful to start at the quarto book documentation (Posit PBC 2024).\n\n\n\n\n\n\nPosit PBC. 2024. “Creating a Book.” https://quarto.org/docs/books/.",
+    "crumbs": [
+      "Assignment Flow"
+    ]
+  },
+  {
+    "objectID": "guide.html",
+    "href": "guide.html",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "",
+    "text": "1.1 Prerequisites\nThis user guide focuses on constructing D-optimal exact designs for linear regression models with correlated observations when the covariance structure is known. Unlike classical optimal design problems with independent errors, correlated data require modifying the Fisher Information Matrix (FIM) and abandoning continuous design theory. The guide provides a step-by-step workflow that pairs the underlying ideas with practical R implementation—so readers with a working knowledge of R can identify, compute, and evaluate D-optimal designs in their own setting (López-Fidalgo and Wong 2026).\nWhat you will learn: how to recognize when correlation invalidates standard design tools; how to write down the linear model and design space in R; how to turn a correlation model (e.g., AR(1), exponential in time or space) into a covariance matrix \\(\\Sigma(\\xi)\\); how to build the FIM \\(M(\\xi) = X(\\xi)^\\top \\Sigma(\\xi)^{-1} X(\\xi)\\) and why it differs from the usual \\(X^\\top X\\); how to search over candidate exact designs to (approximately) maximize \\(\\det M(\\xi)\\); and how to evaluate designs via relative D-efficiency when equivalence theorems no longer apply.\nScope: We assume a linear model with normally distributed, homoscedastic responses and a known correlation structure. The design space is a user-specified compact set of candidate points (e.g., a finite grid of times or spatial locations). We do not cover nonlinear models (where the FIM depends on unknown parameters), model discrimination (KL-optimality), or general virtual-noise algorithms—only the core D-optimal exact-design case.\nFor a more detailed breakdown of conceptual and problem-specific prerequisites, see the Task Analysis appendix.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#prerequisites",
+    "href": "guide.html#prerequisites",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "",
+    "text": "Software: A working installation of R (e.g., R 4.x) and an editor or IDE (RStudio, VS Code, or similar). Ability to run scripts and install packages if needed.\nR skills: Comfort writing small R functions, using vectors and matrices, and inspecting output (e.g., summary(), printing matrices).\nStatistical knowledge: Familiarity with linear regression (design matrices, coefficients, residuals), variance–covariance matrices, and the idea that D-optimality maximizes precision of parameter estimates. A high-level grasp of the Fisher Information Matrix is helpful but not required to follow the steps.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#workflow-overview",
+    "href": "guide.html#workflow-overview",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.2 Workflow overview",
+    "text": "1.2 Workflow overview\nThe guide is organized into seven steps, in order:\n\nFormalize the model and design space: Write down the linear model and candidate design points; build \\(X(\\xi)\\) in R.\nDefine the covariance structure: Choose a correlation model and implement a function that returns \\(\\Sigma(\\xi)\\).\nConstruct the Fisher Information Matrix: Implement \\(M(\\xi) = X(\\xi)^\\top \\Sigma(\\xi)^{-1} X(\\xi)\\) and \\(\\log\\det M(\\xi)\\).\nSpecify the space of exact designs: Represent exact designs as vectors of design points (replications = repeated entries).\nSearch for D-optimal designs: Run an exchange algorithm (and optionally multiple restarts) to maximize \\(\\log\\det M(\\xi)\\).\nEvaluate and compare designs: Report \\(\\log\\det M(\\xi)\\), relative D-efficiency vs. a baseline, and optional standard errors.\nDocument and export the design: Summarize the design in a table and record code and settings for reproducibility.\n\n\n\n\n\n\n\n\n\nInput\nProcess\nOutput\n\n\n\n\nLinear model, design space \\(\\mathcal{X}\\), covariance structure\nSteps 1–4: Build \\(X(\\xi)\\), \\(\\Sigma(\\xi)\\), \\(\\log\\det M(\\xi)\\)\nCriterion function to maximize\n\n\nCriterion function, grid, sample size \\(n\\)\nStep 5: Exchange search (and restarts)\nApproximate D-optimal exact design\n\n\nOptimal design, baseline design\nStep 6: Relative D-efficiency, SEs\nComparison and diagnostics\n\n\nFinal design\nStep 7: Table and code\nReproducible design for the experiment\n\n\n\n\n\n\n\n\n\nTipFull annotated R script\n\n\n\nA complete, runnable R script that implements this workflow is provided in annotated_r_example.R in this project. It uses the same steps (design space, \\(X(\\xi)\\), \\(\\Sigma(\\xi)\\), \\(\\log\\det M(\\xi)\\), exchange search, relative D-efficiency) with both AR(1) and exponential correlation, a configurable regression basis (e.g. intercept + slope + quadratic), and a multi-start search. You can edit the “User settings” block at the top and run the script to reproduce the workflow or adapt it to your own model and design space.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#when-correlation-matters",
+    "href": "guide.html#when-correlation-matters",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.3 When correlation matters",
+    "text": "1.3 When correlation matters\nWhy would you want to complete this task? If you are planning a study with correlated observations (e.g., repeated measurements over time, spatial sampling, or clustered data), choosing when and where to measure using standard “independent errors” design tools can waste a large fraction of your information. Efficiency can drop to single-digit percentages when the true process is correlated but the design was chosen under an independence assumption. This guide gives you a practical workflow to construct designs that account for correlation, so you can get more precise parameter estimates—or the same precision with fewer observations—in settings where correlation matters.\nFor uncorrelated observations, the Fisher Information Matrix is additive over design points and, for a continuous design \\(\\xi\\), takes the familiar form that leads to \\(X^\\top X\\) (up to a scale) for exact designs. Optimal design theory then enjoys convexity and the General Equivalence Theorem (GET), which certifies optimality via directional derivatives.\nFor correlated observations, the FIM is nonadditive and depends on the exact design \\(\\xi\\) and its covariance structure \\(\\Sigma(\\xi)\\). It is defined as\n[ M() = X()^, ()^{-1} , X(), ]\nwhere \\(f(x)\\) (or \\(X\\)) is the \\(n\\times p\\) mean response structure (design matrix), and \\(\\Sigma(\\xi)\\) is the \\(n\\times n\\) covariance matrix of the observations under design \\(\\xi\\), with entries driven by the correlation between design points. Once correlation is present, continuous design theory and the GET no longer apply in the same way; you must work with exact designs (finite sets of points with integer replication) and rely on computational search rather than a closed-form optimality check (López-Fidalgo and Wong 2026). Ignoring correlation can be costly—e.g., efficiency can drop to single-digit percentages when the true process is correlated but the design was chosen under an independence assumption.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#data-and-design-points",
+    "href": "guide.html#data-and-design-points",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.4 Data and design points",
+    "text": "1.4 Data and design points\nThis guide does not use a single fixed dataset; instead, the “data” are synthetic design points that represent where and how many times you will observe. In the running example we use a one-dimensional grid of times (e.g., 0 to 10 in steps of 0.5) as the candidate design space. Each design point is a time (or spatial location) at which you plan to take a measurement; replications correspond to repeated observations at the same point. You should replace the example grid with your own feasible set of times or locations (e.g., from study protocol or logistical constraints). The methods assume that responses will be approximately normally distributed with homoscedastic variance and that the covariance structure (e.g., AR(1) or exponential) is known or fixed from prior work or a pilot study.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#step-1.-formalize-the-model-and-design-space",
+    "href": "guide.html#step-1.-formalize-the-model-and-design-space",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.5 Step 1. Formalize the model and design space",
+    "text": "1.5 Step 1. Formalize the model and design space\nWrite down the linear model\n\\[\ny = X(\\xi)\\beta + \\varepsilon, \\quad \\varepsilon \\sim \\mathcal{N}(0, \\sigma^2 \\Sigma(\\xi)),\n\\]\nwith \\(\\beta\\) the parameter vector you care about and \\(\\xi\\) the design (the set of design points and their replications). Define:\n\nThe parameter vector \\(\\beta\\) (e.g., intercept and slope for a simple linear regression in time).\nThe candidate design space \\(\\mathcal{X}\\): a finite grid of allowed points (e.g., time points or spatial coordinates). In practice this is often a compact subset of \\(\\mathbb{R}^d\\).\n\nIn R, encode the design as a vector of design points (with replications implied by repeated entries). Build the design matrix \\(X(\\xi)\\) by evaluating the model regressors at those points. The example below uses a simple linear trend in one variable (e.g., time).\n\n# Candidate design space: finite grid (e.g., times 0 to 10)\ngrid &lt;- seq(0, 10, by = 0.5)\n# Model: E(y) = beta0 + beta1 * t  =&gt;  X has columns (1, t)\nmake_X &lt;- function(design_points) {\n  # design_points: vector of times (or coordinates) with replications\n  # by repeating a value you give it that many observations\n  t &lt;- design_points\n  model.matrix(~ t)\n}\n\n# Example: 5 observations at times 0, 2, 5, 5, 10\nexample_design_pts &lt;- c(0, 2, 5, 5, 10)\nX_ex &lt;- make_X(example_design_pts)\nX_ex\n\n  (Intercept)  t\n1           1  0\n2           1  2\n3           1  5\n4           1  5\n5           1 10\nattr(,\"assign\")\n[1] 0 1\n\n\nSo \\(X(\\xi)\\) is just the usual model matrix for your linear model evaluated at the chosen design points. In annotated_r_example.R, the design matrix is built by a user-defined regression_basis() (e.g. cbind(1, x, x^2) for a quadratic model); you can change that function to match your regression structure.\nYou should now be able to plug in your own regression basis and candidate grid and build \\(X(\\xi)\\) for any proposed design vector.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#step-2.-define-the-covariance-structure",
+    "href": "guide.html#step-2.-define-the-covariance-structure",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.6 Step 2. Define the covariance structure",
+    "text": "1.6 Step 2. Define the covariance structure\nChoose a parametric correlation model so that, for any set of design points, you can form the covariance matrix \\(\\Sigma(\\xi)\\). The review discusses several positive-definite families (López-Fidalgo and Wong 2026); two common choices are:\n\nExponential (with optional nugget): \\(C(d) = \\sigma^2\\bigl(\\nu\\,\\mathbf{1}_{\\{d=0\\}} + (1-\\nu)\\, e^{-d/\\phi}\\bigr)\\), where \\(d\\) is distance (in time or space), \\(\\phi\\) is the range, and \\(\\nu\\) is the nugget (variance at zero distance). The nugget helps avoid singular or ill-conditioned \\(\\Sigma\\) and can prevent optimal designs from collapsing to too few distinct points.\nAR(1) (in time): \\(\\Sigma_{ij} = \\sigma^2 \\rho^{|t_i - t_j|}\\), with \\(\\rho \\in (0,1)\\).\n\nImplement an R function that, given a vector of design points, returns \\(\\Sigma(\\xi)\\). Below we use an exponential correlation in one dimension (e.g., time); for spatial designs you would use distance between pairs of points.\n\n# Exponential correlation with nugget:\n# Sigma_ij = sigma2 * (nugget * I(i=j) + (1 - nugget) * exp(-|ti - tj| / phi))\nsigma2 &lt;- 1\nphi &lt;- 2\nnugget &lt;- 0.05\n\nmake_Sigma &lt;- function(design_points, sigma2 = 1, phi = 2, nugget = 0.05) {\n  t &lt;- design_points\n  n &lt;- length(t)\n  d &lt;- as.matrix(dist(t, method = \"manhattan\"))\n  R &lt;- (1 - nugget) * exp(-d / phi)\n  diag(R) &lt;- 1\n  sigma2 * R\n}\n\n# Check: positive definite and reasonable condition number\nSigma_ex &lt;- make_Sigma(example_design_pts, sigma2, phi, nugget)\neigen(Sigma_ex, only.values = TRUE)$values\n\n[1] 2.0888930 1.2389572 0.9866779 0.6354718 0.0500000\n\n\nIf all eigenvalues are positive and the condition number (max/min eigenvalue) is not huge, \\(\\Sigma(\\xi)\\) is numerically well-behaved. For other families (e.g., Matérn, Dagum, Cauchy), you would replace the correlation kernel with the corresponding formula; the important part is that the function maps design points to a positive-definite matrix. The script annotated_r_example.R implements both AR(1) and exponential correlation in build_Sigma() with a model argument; you can switch between them or add other structures there.\nYou should now be able to pass any vector of design points to your covariance function and obtain a valid \\(\\Sigma(\\xi)\\).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#step-3.-construct-the-fisher-information-matrix-under-correlation",
+    "href": "guide.html#step-3.-construct-the-fisher-information-matrix-under-correlation",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.7 Step 3. Construct the Fisher Information Matrix under correlation",
+    "text": "1.7 Step 3. Construct the Fisher Information Matrix under correlation\nThe FIM for the correlated linear model is\n[ M() = X()(){-1} X(). ]\nCompute it in R using the Cholesky factorization of \\(\\Sigma(\\xi)\\) so you never form \\(\\Sigma^{-1}\\) explicitly (more stable and faster). Then define a function that returns \\(\\log\\det M(\\xi)\\), which is what we will maximize (equivalent to maximizing \\(\\det M(\\xi)\\) and more stable numerically).\n\n# M = X' Sigma^{-1} X   via  solve(Sigma, X) = Sigma^{-1} X\n# Using Cholesky: Sigma = L L',  solve(Sigma, X) = solve(L', solve(L, X))\nlog_det_M &lt;- function(design_points, make_X, make_Sigma, ...) {\n  X &lt;- make_X(design_points)\n  Sigma &lt;- make_Sigma(design_points, ...)\n  n &lt;- nrow(X)\n  p &lt;- ncol(X)\n  if (n &lt; p) return(-Inf)\n  # Sigma^{-1} X\n  W &lt;- solve(Sigma, X)\n  M &lt;- crossprod(X, W)\n  log(det(M))\n}\n\n# Example\nlog_det_M(example_design_pts, make_X, make_Sigma,\n          sigma2 = sigma2, phi = phi, nugget = nugget)\n\n[1] 5.052924\n\n\nIf you only need \\(\\log\\det M(\\xi)\\) for the search, the above is enough. If you also need \\(M(\\xi)\\) itself (e.g., for standard errors), compute it as M &lt;- crossprod(X, solve(Sigma, X)). In annotated_r_example.R, logdet_D_criterion() uses Cholesky on both \\(\\Sigma\\) and \\(M\\) for stability and returns \\(-\\infty\\) for rank-deficient \\(X\\) or non–positive-definite \\(\\Sigma\\), so the search automatically rejects invalid designs.\nYou should now be able to evaluate \\(\\log\\det M(\\xi)\\) for any design; this function is what the search in Step 5 will maximize.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#step-4.-specify-the-space-of-exact-designs",
+    "href": "guide.html#step-4.-specify-the-space-of-exact-designs",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.8 Step 4. Specify the space of exact designs",
+    "text": "1.8 Step 4. Specify the space of exact designs\nAn exact design is a finite set of design points with integer replication counts—i.e., a multiset of points from your candidate grid whose total size equals your sample size \\(n\\). In code, represent it as a vector of length \\(n\\) of design points (replications = repeated entries). The design space is the set of all such vectors whose entries lie in your candidate grid \\(\\mathcal{X}\\).\n\ngrid &lt;- seq(0, 10, by = 0.5)\nn_obs &lt;- 10\n\n# One design = n_obs indices into grid (allows repeats)\n# Example: random initial design\nset.seed(42)\nidx_init &lt;- sample(length(grid), size = n_obs, replace = TRUE)\ndesign_init &lt;- grid[idx_init]\nsort(design_init)\n\n [1] 0.0 1.5 1.5 2.0 3.0 4.5 7.0 8.0 8.0 8.5\n\n\nYou can also represent the design as a vector of replication counts over the grid (one count per grid point, summing to \\(n\\)); the indexing representation is convenient for swapping one point at a time during the exchange algorithm. annotated_r_example.R uses the same representation and provides random_design() and baseline_design() (e.g. roughly equally spaced) for initialization.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#step-5.-search-for-d-optimal-designs",
+    "href": "guide.html#step-5.-search-for-d-optimal-designs",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.9 Step 5. Search for D-optimal designs",
+    "text": "1.9 Step 5. Search for D-optimal designs\nBecause the General Equivalence Theorem does not apply, we search over exact designs by iteratively improving \\(\\log\\det M(\\xi)\\). A simple and effective approach is an exchange algorithm (López-Fidalgo and Wong 2026):\n\nInput: Initial design \\(\\xi^{(0)}\\) (e.g., random or evenly spread), tolerance \\(\\tau\\).\nIterate: For each support point in the current design, consider swapping it with a point from the candidate grid. Compute the change in the criterion (e.g., \\(\\log\\det M(\\xi)\\)). Apply the swap that gives the largest improvement.\nTermination: Stop when the relative change in the criterion is below \\(\\tau\\) (or no improving swap exists).\n\nBelow is a minimal R implementation: one pass over the design points, trying swaps with the full grid and accepting the first improvement (greedy). You can extend it to multiple restarts or to “best improvement” per iteration for stability.\n\nexchange_D_optimal &lt;- function(grid, n_obs, make_X, make_Sigma,\n                               max_iter = 100, tol = 1e-6, ...) {\n  # Initial design: random from grid\n  idx &lt;- sample(length(grid), size = n_obs, replace = TRUE)\n  design_pts &lt;- grid[idx]\n  crit_cur &lt;- log_det_M(design_pts, make_X, make_Sigma, ...)\n  crit_history &lt;- crit_cur\n\n  for (it in seq_len(max_iter)) {\n    improved &lt;- FALSE\n    for (i in seq_len(n_obs)) {\n      best_delta &lt;- 0\n      best_j &lt;- NA\n      for (j in seq_along(grid)) {\n        design_new &lt;- design_pts\n        design_new[i] &lt;- grid[j]\n        crit_new &lt;- log_det_M(design_new, make_X, make_Sigma, ...)\n        delta &lt;- crit_new - crit_cur\n        if (delta &gt; best_delta) {\n          best_delta &lt;- delta\n          best_j &lt;- j\n        }\n      }\n      if (best_delta &gt; tol) {\n        design_pts[i] &lt;- grid[best_j]\n        crit_cur &lt;- crit_cur + best_delta\n        improved &lt;- TRUE\n      }\n    }\n    crit_history &lt;- c(crit_history, crit_cur)\n    if (!improved) break\n  }\n\n  list(design = design_pts, log_det_M = crit_cur, history = crit_history)\n}\n\n# Run search\nset.seed(123)\nresult &lt;- exchange_D_optimal(grid, n_obs, make_X, make_Sigma,\n                             sigma2 = sigma2, phi = phi, nugget = nugget)\nresult$log_det_M\n\n[1] 5.296381\n\nsort(result$design)\n\n [1]  0.0  1.0  2.0  3.0  4.5  6.0  7.5  8.5  9.5 10.0\n\n\nFor larger problems, use a coarser grid for the inner “best swap” search, or use metaheuristics (e.g., simulated annealing, genetic algorithms) as discussed in the review (López-Fidalgo and Wong 2026). The script annotated_r_example.R implements exchange_search() (one-point-at-a-time swaps over the candidate set) and multi_start_search() (multiple random restarts) so you can run the same algorithm from the command line and tune n_restarts and max_iter_per_restart in the “User settings” block.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#step-6.-evaluate-and-compare-designs",
+    "href": "guide.html#step-6.-evaluate-and-compare-designs",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.10 Step 6. Evaluate and compare designs",
+    "text": "1.10 Step 6. Evaluate and compare designs\nEvaluate the chosen design by (i) reporting \\(\\log\\det M(\\xi)\\), (ii) comparing to a baseline (e.g., equally spaced or uniform random) via relative D-efficiency, and (iii) optionally inspecting approximate standard errors for \\(\\beta\\).\nRelative D-efficiency of design \\(\\xi\\) versus a reference design \\(\\xi_0\\) is\n\\[\n\\text{eff}_D(\\xi, \\xi_0) = \\left( \\frac{\\det M(\\xi)}{\\det M(\\xi_0)} \\right)^{1/p},\n\\]\nwhere \\(p\\) is the number of parameters. So \\(\\exp((\\log\\det M(\\xi) - \\log\\det M(\\xi_0))/p)\\) gives the ratio; values &gt; 1 mean \\(\\xi\\) is better than \\(\\xi_0\\).\n\n# Baseline: equally spaced\ndesign_equi &lt;- seq(min(grid), max(grid), length.out = n_obs)\nlog_det_equi &lt;- log_det_M(design_equi, make_X, make_Sigma,\n                          sigma2 = sigma2, phi = phi, nugget = nugget)\n\np &lt;- 2\nrel_eff &lt;- exp((result$log_det_M - log_det_equi) / p)\nrel_eff\n\n[1] 1.000802\n\n# Approximate SEs from M^{-1} (scale by sigma if known)\nSigma_opt &lt;- make_Sigma(result$design, sigma2, phi, nugget)\nX_opt &lt;- make_X(result$design)\nM_opt &lt;- crossprod(X_opt, solve(Sigma_opt, X_opt))\nsqrt(diag(solve(M_opt)))\n\n(Intercept)           t \n  0.8524249   0.1330164 \n\n\nOptionally, plot the design (e.g., sampling times or locations) to check that it is scientifically and practically reasonable. In annotated_r_example.R, relative_D_efficiency() implements the same formula for any two designs, and the script prints baseline vs. best design and their relative D-efficiencies; it also includes optional plots of the criterion trajectory and the selected design points (with replications stacked for visibility).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#step-7.-document-and-export-the-design",
+    "href": "guide.html#step-7.-document-and-export-the-design",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.11 Step 7. Document and export the design",
+    "text": "1.11 Step 7. Document and export the design\nSummarize the chosen design in a table or data frame suitable for running the experiment, and record the R code and parameter settings so the process is reproducible.\n\ndesign_table &lt;- data.frame(\n  point_index = seq_along(result$design),\n  design_point = result$design\n)\n# Replication counts per distinct point\ndesign_table &lt;- aggregate(\n  point_index ~ design_point,\n  data = design_table,\n  FUN = length\n)\nnames(design_table)[2] &lt;- \"replications\"\ndesign_table\n\n   design_point replications\n1           0.0            1\n2           1.0            1\n3           2.0            1\n4           3.0            1\n5           4.5            1\n6           6.0            1\n7           7.5            1\n8           8.5            1\n9           9.5            1\n10         10.0            1\n\n\nThe table above lists each distinct design point (time or location) and its replications (how many observations to take at that point). Use it when running the experiment: schedule that many measurements at each listed point. Save the design and key inputs (grid, sample size, covariance parameters, criterion value) to a file or script so you can reproduce the design later. annotated_r_example.R ends by building a final_design_table (design points and replicate counts) and printing it for use when running the experiment; you can write that table to CSV or incorporate it into your study protocol.\nFigure Figure 1.1 helps you check that the selected design is practically reasonable (e.g., not overly clustered at one end of the grid). Below, the gray ticks show the candidate grid; filled points show the chosen design, with replications stacked vertically at each location.\n\nplot(grid, rep(0, length(grid)), pch = 3, col = \"gray80\",\n     xlab = \"Design point (e.g., time)\", ylab = \"\",\n     yaxt = \"n\", main = \"D-optimal design (replications stacked)\")\nabline(h = 0, col = \"gray90\")\ntab &lt;- table(result$design)\nfor (xv in as.numeric(names(tab))) {\n  reps &lt;- as.integer(tab[as.character(xv)])\n  points(rep(xv, reps), seq_len(reps), pch = 19)\n}\n\n\n\n\n\n\n\nFigure 1.1: Selected design points (replications shown by vertical stack). Gray ticks are the candidate grid.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#additional-resources",
+    "href": "guide.html#additional-resources",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.12 Additional resources",
+    "text": "1.12 Additional resources\n\nLópez-Fidalgo and Wong (López-Fidalgo and Wong 2026): The review this guide is based on; it covers theory, other optimality criteria, and metaheuristic search in more depth.\nOptimal design in general: Introductory texts on experimental design (e.g., Atkinson and Donev (Atkinson, Donev, and Tobias 2007)) explain D-optimality and exchange algorithms for uncorrelated data; the formulas here extend those ideas to the correlated case.\nCorrelation structures in R: If you need to fit models with AR(1), exponential, or spatial correlation (e.g., for pilot data), see the nlme and gls documentation or Pinheiro and Bates (“Fitting Nonlinear Mixed-Effects Models” 2000) for specifying correlation structures in R.\nQuarto books: For building and customizing this report, see the Quarto book documentation (Posit PBC 2024).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#reproducibility",
+    "href": "guide.html#reproducibility",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.13 Reproducibility",
+    "text": "1.13 Reproducibility\nThis guide was prepared so it can be run on another machine with R and Quarto installed. To reproduce the report: install R (tested with R 4.x), install Quarto, then in the project directory run quarto render . (or use Build in RStudio). All code in this document uses base R only; no extra packages are required. You can also run the standalone script annotated_r_example.R in R to reproduce the full workflow (edit the “User settings” block at the top for your own model and design space).",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "guide.html#summary-and-practical-tips",
+    "href": "guide.html#summary-and-practical-tips",
+    "title": "1  Constructing D-Optimal Designs for Correlated Data",
+    "section": "1.14 Summary and practical tips",
+    "text": "1.14 Summary and practical tips\n\nDesign space: Keep the candidate grid \\(\\mathcal{X}\\) compact and aligned with feasible times or locations; very dense grids increase run time.\nCovariance: Use a nugget if \\(\\Sigma(\\xi)\\) is ill-conditioned; it also helps avoid designs that collapse to too few distinct points.\nNumerics: Use Cholesky-based solves for \\(\\Sigma^{-1}X\\) and maximize \\(\\log\\det M(\\xi)\\) rather than \\(\\det M(\\xi)\\).\nSearch: Run the exchange algorithm from a few different initial designs; if results are similar, the solution is more trustworthy.\nInterpretation: Report relative D-efficiency versus a simple baseline so stakeholders see the gain from optimal design under correlation.\n\nFor nonlinear models, the FIM depends on unknown parameters \\(\\theta\\); the review discusses locally optimal, Bayesian, and minimax designs (López-Fidalgo and Wong 2026). For model discrimination, a KL-optimal criterion and corresponding exchange algorithm can be used; the virtual-noise approach is another tool for concentrating design mass. This guide stays with the linear, known-covariance case so you can get a working pipeline in R and then extend it as needed.\n\n\n\n\nAtkinson, Anthony, Alexander Donev, and Randall Tobias. 2007. Optimum Experimental Designs, with SAS. https://doi.org/10.1093/oso/9780199296590.001.0001.\n\n\n“Fitting Nonlinear Mixed-Effects Models.” 2000. In Mixed-Effects Models in s and s-PLUS, 337–421. New York, NY: Springer New York. https://doi.org/10.1007/0-387-22747-4_8.\n\n\nLópez-Fidalgo, J., and W. K. Wong. 2026. “Optimal Designs for Correlated Data.” Annual Review of Statistics and Its Application 13: 12.1–26. https://doi.org/10.1146/annurev-statistics-042324-012947.\n\n\nPosit PBC. 2024. “Creating a Book.” https://quarto.org/docs/books/.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Constructing D-Optimal Designs for Correlated Data</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Atkinson, Anthony, Alexander Donev, and Randall Tobias. 2007.\nOptimum Experimental Designs, with SAS. https://doi.org/10.1093/oso/9780199296590.001.0001.\n\n\n“Fitting Nonlinear Mixed-Effects Models.” 2000. In\nMixed-Effects Models in s and s-PLUS, 337–421. New York, NY:\nSpringer New York. https://doi.org/10.1007/0-387-22747-4_8.\n\n\nLópez-Fidalgo, J., and W. K. Wong. 2026. “Optimal Designs for\nCorrelated Data.” Annual Review of Statistics and Its\nApplication 13: 12.1–26. https://doi.org/10.1146/annurev-statistics-042324-012947.\n\n\nPosit PBC. 2024. “Creating a Book.” https://quarto.org/docs/books/.",
+    "crumbs": [
+      "References"
+    ]
+  },
+  {
+    "objectID": "topic.html",
+    "href": "topic.html",
+    "title": "Appendix A — Topic",
+    "section": "",
+    "text": "A.1 Proposed User Guide Topic\nHow to construct a D-optimal experimental design when observations are correlated using a known covariance structure",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Topic</span>"
+    ]
+  },
+  {
+    "objectID": "topic.html#scope-of-the-user-guide",
+    "href": "topic.html#scope-of-the-user-guide",
+    "title": "Appendix A — Topic",
+    "section": "A.2 Scope of the user guide",
+    "text": "A.2 Scope of the user guide\nThis user guide will explain how to:\n\nRecognize when correlated observations invalidate standard optimal design approaches\nIncorporate a known covariance matrix into the Fisher Information Matrix (FIM)\nConstruct and evaluate a D-optimal exact design for correlated data\nUnderstand why continuous designs and equivalence theorems no longer apply in this setting\nImplement the design in R for time- or space-correlated data (building the FIM, searching over candidate designs, and evaluating design quality with reproducible code)\n\nThe guide will focus specifically on linear models with normally distributed, homoscedastic responses and a known correlation structure, which is one of the most practically relevant and theoretically challenging cases discussed in the review (optimal designs for correlated …).\nAssumed background: Readers have a working knowledge of R (e.g., fitting linear models, working with matrices, writing simple functions and loops) and understand basic regression and confidence intervals. They are not assumed to be experts in optimal design for correlated data. The guide emphasizes practical implementation—each conceptual step is paired with R code (e.g., defining covariance structures, assembling the FIM, and running a design search) so that users can adapt the workflow to their own correlation models and design spaces.\nWhen to use or not use: The guide avoids the most abstract theory (e.g., non-Gaussian processes or KL-optimal discrimination) while still being advanced. It is intended for analysts who have (or can specify) a known correlation structure and want to construct and evaluate D-optimal exact designs in R.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Topic</span>"
+    ]
+  },
+  {
+    "objectID": "topic.html#why-this-is-a-good-subset",
+    "href": "topic.html#why-this-is-a-good-subset",
+    "title": "Appendix A — Topic",
+    "section": "A.3 Why this is a good subset",
+    "text": "A.3 Why this is a good subset\n\nIt is narrow enough to be a true “how-to” manual with a clear implementation path in R.\nIt addresses a core problem emphasized by López-Fidalgo & Wong: optimal design theory for uncorrelated data does not extend cleanly to correlated settings (optimal designs for correlated …).\nA practical, R-oriented focus makes the theory actionable for applied researchers and aligns with the assumed R background.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Topic</span>"
+    ]
+  },
+  {
+    "objectID": "topic.html#example-framing-for-the-assignment",
+    "href": "topic.html#example-framing-for-the-assignment",
+    "title": "Appendix A — Topic",
+    "section": "A.4 Example framing for the assignment",
+    "text": "A.4 Example framing for the assignment\nThis user guide focuses on constructing D-optimal exact designs for linear regression models with correlated observations when the covariance structure is known. Unlike classical optimal design problems with independent errors, correlated data require modifying the Fisher Information Matrix and abandoning continuous design theory. The guide provides a step-by-step workflow that pairs the underlying ideas with practical R implementation—so readers with a working knowledge of R can identify, compute, and evaluate D-optimal designs in their own setting.\n\n\n\n\n\n\nNoteComments/suggestions\n\n\n\nI’ll be honest, I didn’t expect a project that went into Fisher Information from an undergrad class. D-optimality isn’t something I’ve seen much, even as a grad student (or since), but that’s probably because I’m not an experimental design person.\nIn any case, please take care to create good, accessible explanations that your classmates will understand - this is particularly important with a topic that’s more complicated and delicate.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>A</span>  <span class='chapter-title'>Topic</span>"
+    ]
+  },
+  {
+    "objectID": "needs.html",
+    "href": "needs.html",
+    "title": "Appendix B — Needs Assessment",
+    "section": "",
+    "text": "B.1 What users are trying to accomplish\nThe user guide is aimed at an applied statistics audience (advanced undergraduates, graduate students, or practitioners) who:\nWhat they need help with is translating the abstract idea of “D-optimal design with correlated observations and a known covariance structure” into a concrete, reproducible workflow:\nIn short, users need a guided bridge between the theory in López-Fidalgo and Wong’s review and a step-by-step R script they can adapt to their own correlated-data setting.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Needs Assessment</span>"
+    ]
+  },
+  {
+    "objectID": "needs.html#what-users-are-trying-to-accomplish",
+    "href": "needs.html#what-users-are-trying-to-accomplish",
+    "title": "Appendix B — Needs Assessment",
+    "section": "",
+    "text": "Already fit linear models in R, understand regression coefficients, and interpret confidence intervals.\nKnow that their data are correlated (e.g., longitudinal measurements on the same subject, time series, or spatial locations) and have at least a plausible parametric form for the covariance structure.\nWant to design a new study—choose when and where to observe, or which experimental settings to run—so that parameter estimates are as precise as possible under correlation.\n\n\n\nDeciding when correlation is strong enough that classical i.i.d. design tools break down and it is worth doing something more sophisticated.\nWriting down the linear model, parameter vector, and design space in a way that can be encoded in R.\nTurning a verbal description of correlation (e.g., AR(1) in time, exponential in space) into an actual covariance matrix \\(\\Sigma(\\xi)\\) that depends on the proposed design \\(\\xi\\).\nBuilding the Fisher Information Matrix for correlated data, \\(M(\\xi) = X(\\xi)^\\top \\Sigma(\\xi)^{-1} X(\\xi)\\), and understanding why this differs from the usual \\(X^\\top X\\) formula.\nImplementing a search over candidate exact designs (finite collections of design points with integer replication counts) that approximately maximize \\(\\det M(\\xi)\\).\nEvaluating and comparing designs (e.g., via relative D-efficiency) in a way that makes sense when continuous design theory and equivalence theorems no longer apply.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Needs Assessment</span>"
+    ]
+  },
+  {
+    "objectID": "needs.html#likely-pain-points-and-tricky-concepts",
+    "href": "needs.html#likely-pain-points-and-tricky-concepts",
+    "title": "Appendix B — Needs Assessment",
+    "section": "B.2 Likely pain points and tricky concepts",
+    "text": "B.2 Likely pain points and tricky concepts\nSeveral parts of this task are tricky:\n\nRecognizing the impact of correlation: Users may intuit that “correlation matters,” but the magnitude of the efficiency loss from ignoring it (e.g., the dramatic 7.68% efficiency example in the review) is not obvious without explicit calculations. The guide needs to make that invisible cost concrete.\nSpecifying the covariance structure: Choosing a form (AR(1), exponential, Matérn, etc.) and its parameters is nontrivial. Even when the form is supplied by subject-matter experts, users may be unsure how to:\n\nTranslate it into an R function that takes a set of design points and returns a positive-definite covariance matrix.\nCheck that the resulting \\(\\Sigma(\\xi)\\) is numerically well-behaved (invertible, not ill-conditioned).\n\nWorking with matrix expressions under correlation: Moving from \\(M = X^\\top X\\) to \\(M = X^\\top \\Sigma^{-1} X\\) introduces:\n\nExtra matrix inversions (or solves) that can be numerically unstable for poorly chosen designs.\nA loss of simple geometric intuition; users may not immediately see how changing design points reshapes \\(\\det M(\\xi)\\).\n\nAbandoning continuous-design theory: Many optimal design introductions lean heavily on:\n\nContinuous design measures instead of exact, integer-valued designs.\nEquivalence theorems that certify optimality. In the correlated case, these tools weaken or disappear. Users must instead accept computational search with no simple optimality certificate, which can feel unsatisfying or untrustworthy without careful explanation.\n\nTuning and trusting search algorithms: Practical D-optimal design for correlated data often relies on heuristic or metaheuristic algorithms (e.g., coordinate-exchange, simulated annealing, genetic algorithms). Users need:\n\nA clear description of what the algorithm is doing at a high level.\nSensible defaults for tuning parameters (iterations, step sizes, restart strategies).\nDiagnostics to judge whether the algorithm has likely found a good design, rather than getting stuck in a local optimum.\n\nInterpreting design quality: Without equivalence theorems, evaluation focuses on:\n\nComparing \\(\\log \\det M(\\xi)\\) across candidate designs.\nComputing relative D-efficiency versus a benchmark. Users may struggle to interpret what constitutes a “meaningfully better” design in terms of power, precision, or required sample size.\n\n\nThe guide must therefore slow down at these points, providing intuition, visualizations (where possible), and R code that makes the abstract objects (covariance matrices, information matrices, determinants) tangible.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Needs Assessment</span>"
+    ]
+  },
+  {
+    "objectID": "needs.html#existing-resources-and-their-gaps",
+    "href": "needs.html#existing-resources-and-their-gaps",
+    "title": "Appendix B — Needs Assessment",
+    "section": "B.3 Existing resources and their gaps",
+    "text": "B.3 Existing resources and their gaps\nSeveral categories of resources touch on optimal design and correlated data, but each leaves a gap that the user guide is meant to fill:\n\nThe López-Fidalgo and Wong review itself:\n\nStrengths: It clearly motivates why optimal design for correlated data is important, highlights the breakdown of classical theory, and surveys algorithmic approaches (including nature-inspired metaheuristics).\nLimitations for our target user: It is written as a research-level review, not a hands-on tutorial. Key steps—constructing \\(\\Sigma(\\xi)\\), coding the information matrix, and implementing a search in R—are not spelled out at the level of a lab notebook.\n\nGeneral optimal design textbooks and articles:\n\nOften provide accessible introductions to D-optimality and continuous designs for uncorrelated errors.\nTypically assume independence, so the formulas and examples do not transfer directly once correlation is present.\nWhen correlation is mentioned, it may be treated briefly or in highly theoretical form, with limited computational guidance.\n\nR package vignettes and documentation:\n\nPackages for correlated data (e.g., mixed-effects or generalized least squares models) explain how to fit models with correlation structures, but not how to design experiments under those structures.\nSome optimal design packages exist, but many:\n\nFocus on uncorrelated settings.\nAssume specialized background knowledge to adapt them to correlated data.\nProvide example scripts without clearly connecting each coding step to the underlying design criterion.\n\n\nResearch papers on metaheuristic and algorithmic design search:\n\nDemonstrate that heuristic search can work well in correlated settings.\nAre often implementation-light, leaving the reader to reconstruct algorithms in their own environment.\n\n\nThe user guide responds to these gaps by:\n\nTargeting readers who already know basic R and regression but are new to design under correlation.\nProviding annotated R code that users can copy, run, and adapt, rather than only high-level descriptions of algorithms.\n\nBy doing so, the guide aims to make a specialized research topic—D-optimal exact designs with correlated observations and a known covariance structure—accessible and usable for classmates who may never have seen Fisher information or D-optimality in practice.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>B</span>  <span class='chapter-title'>Needs Assessment</span>"
+    ]
+  },
+  {
+    "objectID": "task-analysis.html",
+    "href": "task-analysis.html",
+    "title": "Appendix C — Task Analysis",
+    "section": "",
+    "text": "C.1 Prerequisites\nThis task analysis focuses on constructing a D-optimal exact design for a linear model with correlated observations when the covariance structure is known, and implementing the workflow in R.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Task Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "task-analysis.html#prerequisites",
+    "href": "task-analysis.html#prerequisites",
+    "title": "Appendix C — Task Analysis",
+    "section": "",
+    "text": "Conceptual/statistical knowledge\n\nComfort with linear regression models (design matrices, regression coefficients, residuals).\nUnderstanding of variance–covariance matrices and the idea of correlated errors (e.g., repeated measurements on the same subject, time series, spatial correlation).\nFamiliarity with the Fisher Information Matrix at least at a high level, and with the idea that D-optimality maximizes \\(\\det M(\\xi)\\) to minimize the volume of the confidence ellipsoid for parameters.\nBasic grasp of matrix operations (transpose, inverse, determinant, Cholesky factorization) and numerical stability issues.\n\nSoftware and computational setup\n\nA working installation of R and an editor/IDE (e.g., RStudio, VS Code).\nAbility to install and load common R packages (e.g., Matrix or similar for efficient linear algebra; or a package that helps work with correlation structures if wanted).\nComfort writing small R functions, using loops or apply-family functions, and inspecting matrices.\n\nProblem-specific information\n\nA clearly specified linear model: response, predictors, and the parameter vector \\(\\beta\\) of interest.\nA definition of the design space: which time points, spatial locations, or experimental settings are eligible for sampling (e.g., a finite grid of candidate times or locations).\nA known or assumed covariance structure for the errors, with parameters either fixed from prior work or chosen as a working model (e.g., AR(1) with known \\(\\rho\\), exponential correlation with known range parameter).\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou may want to spend a bit of time showing how to decide on the linear model, identify the design space, etc.\nI find it helpful to link to different options from the Big Book of R (google it) to provide some of the background knowledge.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Task Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "task-analysis.html#data-and-model-requirements",
+    "href": "task-analysis.html#data-and-model-requirements",
+    "title": "Appendix C — Task Analysis",
+    "section": "C.2 Data and model requirements",
+    "text": "C.2 Data and model requirements\nBecause the user guide focuses on linear models with normally distributed responses and known covariance structure:\n\nResponse type and distribution\n\nThe method assumes an approximately Gaussian response with homoskedastic variance, so that the Fisher information derivations are appropriate.\nModerate deviations from normality may be tolerable in practice, but heavy tails or strong skewness are not the main target.\n\nCorrelation structure\n\nThe user must be able to specify a parametric covariance function that:\n\nTakes a set of design points (e.g., times or locations) as input.\nReturns a positive-definite covariance matrix \\(\\Sigma(\\xi)\\).\n\nParameters of the covariance function (e.g., \\(\\rho\\), range, sill) should be treated as known or fixed for the purpose of the design.\n\nMissing data and range constraints\n\nThe design construction itself assumes no missing outcomes in the planned experiment; missingness is a downstream analysis issue, not part of the design criterion.\nThe candidate design points must lie within feasible ranges (e.g., physically possible times or locations, allowable experimental settings).\nIt is helpful if predictors are on reasonable scales to avoid numerical issues when forming \\(X(\\xi)\\) and \\(\\Sigma(\\xi)\\).",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Task Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "task-analysis.html#basic-components-and-steps-of-the-task",
+    "href": "task-analysis.html#basic-components-and-steps-of-the-task",
+    "title": "Appendix C — Task Analysis",
+    "section": "C.3 Basic components and steps of the task",
+    "text": "C.3 Basic components and steps of the task\nAt a high level, constructing a D-optimal exact design with correlated observations involves the following components:\n\nFormalize the model and design space\n\nWrite down the linear model \\(y = X(\\xi)\\beta + \\varepsilon\\), specifying:\n\nThe parameter vector \\(\\beta\\) whose precision you care about.\nThe candidate set of design points (e.g., discrete time grid or spatial lattice).\n\nEncode the mapping from a set of design points to the design matrix \\(X(\\xi)\\) in R.\n\nDefine the covariance structure\n\nChoose an appropriate correlation model (e.g., AR(1), exponential, Matérn) based on the scientific context.\nWrite an R function that, given a set of design points, returns the corresponding covariance matrix \\(\\Sigma(\\xi)\\).\nVerify numerically that \\(\\Sigma(\\xi)\\) is positive-definite and reasonably well-conditioned for plausible designs.\n\nConstruct the Fisher Information Matrix under correlation\n\nImplement the formula \\(M(\\xi) = X(\\xi)^\\top \\Sigma(\\xi)^{-1} X(\\xi)\\) using:\n\nEfficient linear algebra (e.g., solving \\(\\Sigma(\\xi)^{-1} X(\\xi)\\) via a Cholesky factorization rather than explicitly computing \\(\\Sigma(\\xi)^{-1}\\)).\n\nWrite a function that takes a proposed exact design \\(\\xi\\) and returns \\(\\log \\det M(\\xi)\\), which is numerically more stable than \\(\\det M(\\xi)\\) itself.\n\nSpecify the space of exact designs\n\nDecide how many observations are allowed in total (sample size budget).\nRepresent an exact design as:\n\nA collection of design points with integer replication counts, or\nAn index/weight vector over a finite grid of candidate points that sums to the total sample size.\n\n\nSearch for D-optimal designs\n\nChoose a search strategy, such as:\n\nGreedy or coordinate-exchange algorithms that add, swap, or delete points.\nStochastic/metaheuristic methods (e.g., simulated annealing) if the design space is large or multimodal.\n\nImplement the search in R:\n\nInitialize from one or more reasonable starting designs.\nIteratively propose small changes to the design, recompute \\(\\log \\det M(\\xi)\\), and accept changes that improve (or sometimes probabilistically worsen) the criterion.\nTrack the best design found and the trajectory of criterion values.\n\n\nEvaluate and compare candidate designs\n\nFor the final design(s), compute:\n\n\\(\\log \\det M(\\xi)\\) and, if relevant, relative D-efficiency compared to a benchmark (e.g., a naive design that ignores correlation).\nAny additional diagnostics, such as approximate standard errors for key parameters under each design.\n\nOptionally visualize designs (e.g., plots of sampling times or locations) to ensure they are scientifically reasonable.\n\nDocument and export the design\n\nSummarize the chosen design as a table or data frame suitable for use when actually running the experiment.\nRecord the R code and parameter settings used so that the design process is reproducible.\n\n\nEach of these components corresponds to one or more sections in the user guide, with code examples and narrative explanations tying them together.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Task Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "task-analysis.html#on-the-fly-user-decisions",
+    "href": "task-analysis.html#on-the-fly-user-decisions",
+    "title": "Appendix C — Task Analysis",
+    "section": "C.4 On-the-fly user decisions",
+    "text": "C.4 On-the-fly user decisions\nWhile following the guide, users should also be ready to make decisions that may not have the completely right answers:\n\nChoosing the covariance model and parameters:\n\nSelecting among plausible correlation structures (AR(1) vs. exponential vs. Matérn) based on domain knowledge.\nFixing or eliciting parameter values (e.g., correlation strength or range) from prior data, expert judgment, or sensitivity analysis.\n\nDefining the design space and constraints:\n\nDeciding which times or locations are practically feasible (e.g., measurement windows, spatial accessibility).\nDetermining the total sample size and any restrictions on how points can be clustered or spaced.\n\nBalancing computational cost vs. thoroughness:\n\nChoosing how dense the candidate grid of design points should be.\nTuning search-algorithm settings (number of iterations, temperature schedules, number of restarts) to balance run time against the chance of finding a better design.\n\nHandling numerical issues:\n\nDeciding what to do if \\(\\Sigma(\\xi)\\) is nearly singular for some designs (e.g., rejecting such designs, adjusting the grid, or regularizing the covariance).\nChoosing between different numerical linear algebra strategies (e.g., Cholesky vs. eigen decomposition) when computing \\(\\log \\det M(\\xi)\\).\n\nInterpreting trade-offs:\n\nEvaluating whether a modest gain in \\(\\log \\det M(\\xi)\\) justifies using a design that is less convenient operationally (e.g., more irregular sampling times).\nChoosing which parameters are most important to estimate precisely, if some trade-offs in precision are unavoidable.\n\n\nThe guide should surface these decision points explicitly and, where possible, offer heuristics or example defaults rather than pretending the choices are automatic.",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Task Analysis</span>"
+    ]
+  },
+  {
+    "objectID": "task-analysis.html#evaluating-and-refining-the-first-draft-design",
+    "href": "task-analysis.html#evaluating-and-refining-the-first-draft-design",
+    "title": "Appendix C — Task Analysis",
+    "section": "C.5 Evaluating and refining the first draft design",
+    "text": "C.5 Evaluating and refining the first draft design\nAfter running the search algorithm once, users will have a first draft design. At this stage, they should ask:\n\nDoes the design make scientific and logistical sense?\n\nAre measurements scheduled at times or locations that are feasible to implement?\nDoes the design respect any ethical, budgetary, or operational constraints not encoded in the algorithm?\n\nHow good is the design statistically?\n\nHow does \\(\\log \\det M(\\xi)\\) compare to simple baseline designs (e.g., equally spaced times, uniform sampling over space)?\nWhat is the relative D-efficiency of the proposed design versus those baselines?\nAre the implied standard errors for key parameters acceptably small for the study’s goals?\n\nIs the result stable to small changes?\n\nIf the search is rerun with different random seeds or starting designs, do we obtain similar designs and criterion values?\nIf the covariance parameters are perturbed slightly (e.g., range or \\(\\rho\\) changed within a plausible interval), does the recommended design remain similar or at least comparably efficient?\n\n\nBased on answers to these questions, users may need to:\n\nAdjust the design space (e.g., expand the range, refine the grid, or add practically important candidate points).\nRetune the search algorithm (more iterations, additional restarts, or alternative local moves).\nRevisit assumptions about the covariance structure if the design appears overly sensitive to particular parameter values.\n\nThe final step of the task focuses on using these evaluations to reach a design that is both defensible statistically and also practically workable",
+    "crumbs": [
+      "Appendices",
+      "<span class='chapter-number'>C</span>  <span class='chapter-title'>Task Analysis</span>"
+    ]
+  }
+]

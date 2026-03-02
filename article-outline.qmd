@@ -46,7 +46,7 @@
 
 ### 2.1 Linear Model Framework
 
-- Standard form: \(y = f^T(x)\theta + \varepsilon\)
+- Standard form: $y = f^T(x)\theta + \varepsilon$
 - Assumptions: normality, independence, constant variance.
 
 ### 2.2 Examples of Linear Models
@@ -62,7 +62,7 @@
 
 ### 2.4 Information Matrix & Inference Quality
 
-- Information matrix: \(X^TX\)
+- Information matrix: $X^TX$
 - Inverse relates to estimator covariance.
 - Larger information → more precise inference.
 
@@ -132,7 +132,7 @@
 
 #### 3.4.1 Known Covariance
 
-- Covariance of estimators uses \(X^T \Sigma^{-1} X\).
+- Covariance of estimators uses $X^T \Sigma^{-1} X$.
 - Continuous design tools no longer apply.
 
 #### 3.4.2 Unknown Covariance
