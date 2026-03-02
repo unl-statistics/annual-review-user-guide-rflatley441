@@ -2,7 +2,7 @@
 
 This task analysis focuses on constructing a D-optimal exact design for a linear model with correlated observations when the covariance structure is known, and implementing the workflow in R.
 
-### Prerequisites
+## Prerequisites
 
 - Conceptual/statistical knowledge
   - Comfort with linear regression models (design matrices, regression coefficients, residuals).
@@ -28,7 +28,7 @@ I find it helpful to link to different options from the Big Book of R (google it
 
 :::
 
-### Data and model requirements
+## Data and model requirements
 
 Because the user guide focuses on linear models with normally distributed responses and known covariance structure:
 
@@ -47,7 +47,7 @@ Because the user guide focuses on linear models with normally distributed respon
   - The candidate design points must lie within feasible ranges (e.g., physically possible times or locations, allowable experimental settings).
   - It is helpful if predictors are on reasonable scales to avoid numerical issues when forming \(X(\xi)\) and \(\Sigma(\xi)\).
 
-### Basic components and steps of the task
+## Basic components and steps of the task
 
 At a high level, constructing a D-optimal exact design with correlated observations involves the following components:
 
@@ -94,7 +94,7 @@ At a high level, constructing a D-optimal exact design with correlated observati
 
 Each of these components corresponds to one or more sections in the user guide, with code examples and narrative explanations tying them together.
 
-### On-the-fly user decisions
+## On-the-fly user decisions
 
 While following the guide, users should also be ready to make decisions that may not have the completely right answers:
 
@@ -120,7 +120,7 @@ While following the guide, users should also be ready to make decisions that may
 
 The guide should surface these decision points explicitly and, where possible, offer heuristics or example defaults rather than pretending the choices are automatic.
 
-### Evaluating and refining the first draft design
+## Evaluating and refining the first draft design
 
 After running the search algorithm once, users will have a **first draft** design. At this stage, they should ask:
 

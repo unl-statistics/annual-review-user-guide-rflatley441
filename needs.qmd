@@ -1,6 +1,6 @@
 # Needs Assessment {.appendix}
 
-### What users are trying to accomplish
+## What users are trying to accomplish
 
 The user guide is aimed at an applied statistics audience (advanced undergraduates, graduate students, or practitioners) who:
 
@@ -19,7 +19,7 @@ What they need help with is translating the abstract idea of “D-optimal design
 
 In short, users need a guided bridge between the theory in López-Fidalgo and Wong’s review and a step-by-step R script they can adapt to their own correlated-data setting.
 
-### Likely pain points and tricky concepts
+## Likely pain points and tricky concepts
 
 Several parts of this task are tricky:
 
@@ -45,7 +45,7 @@ Several parts of this task are tricky:
 
 The guide must therefore slow down at these points, providing intuition, visualizations (where possible), and R code that makes the abstract objects (covariance matrices, information matrices, determinants) tangible.
 
-### Existing resources and their gaps
+## Existing resources and their gaps
 
 Several categories of resources touch on optimal design and correlated data, but each leaves a gap that the user guide is meant to fill:
 
