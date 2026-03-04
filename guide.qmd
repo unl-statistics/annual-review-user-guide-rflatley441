@@ -26,12 +26,12 @@ The guide is organized into seven steps, in order:
 6. Evaluate and compare designs: Report $\log\det M(\xi)$, relative D-efficiency vs. a baseline, and optional standard errors.
 7. Document and export the design: Summarize the design in a table and record code and settings for reproducibility.
 
-| Input | Process | Output |
-|-------|---------|--------|
-| Linear model, design space $\mathcal{X}$, covariance structure | Steps 1–4: Build $X(\xi)$, $\Sigma(\xi)$, $\log\det M(\xi)$ | Criterion function to maximize |
-| Criterion function, grid, sample size $n$ | Step 5: Exchange search (and restarts) | Approximate D-optimal exact design |
-| Optimal design, baseline design | Step 6: Relative D-efficiency, SEs | Comparison and diagnostics |
-| Final design | Step 7: Table and code | Reproducible design for the experiment |
+| Process | Input | Output |
+|---------|-------|--------|
+| Steps 1–4: Build $X(\xi)$, $\Sigma(\xi)$, $\log\det M(\xi)$ | Linear model, design space $\mathcal{X}$, covariance structure | Criterion function to maximize |
+| Step 5: Exchange search (and restarts) | Criterion function, grid, sample size $n$ | Approximate D-optimal exact design |
+| Step 6: Relative D-efficiency, SEs | Optimal design, baseline design | Comparison and diagnostics |
+| Step 7: Table and code | Final design | Reproducible design for the experiment |
 
 ::: callout-tip
 ## Full annotated R script

@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-02">
+<meta name="dcterms.date" content="2026-03-04">
 
-<title>Appendix C — Task Analysis – User Guide: Annual Review Article Topic</title>
+<title>Appendix C — Task Analysis – Optimal Designs for Correlated Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,7 +127,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">User Guide: Annual Review Article Topic</a> 
+      <a href="./">Optimal Designs for Correlated Data</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -140,13 +140,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Assignment Flow</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Optimal Designs for Correlated Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./guide.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Constructing D-Optimal Designs for Correlated Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Constructing D-Optimal Designs for Correlated Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -198,7 +198,6 @@ window.Quarto = {
   <li><a href="#data-and-model-requirements" id="toc-data-and-model-requirements" class="nav-link" data-scroll-target="#data-and-model-requirements"><span class="header-section-number">C.2</span> Data and model requirements</a></li>
   <li><a href="#basic-components-and-steps-of-the-task" id="toc-basic-components-and-steps-of-the-task" class="nav-link" data-scroll-target="#basic-components-and-steps-of-the-task"><span class="header-section-number">C.3</span> Basic components and steps of the task</a></li>
   <li><a href="#on-the-fly-user-decisions" id="toc-on-the-fly-user-decisions" class="nav-link" data-scroll-target="#on-the-fly-user-decisions"><span class="header-section-number">C.4</span> On-the-fly user decisions</a></li>
-  <li><a href="#evaluating-and-refining-the-first-draft-design" id="toc-evaluating-and-refining-the-first-draft-design" class="nav-link" data-scroll-target="#evaluating-and-refining-the-first-draft-design"><span class="header-section-number">C.5</span> Evaluating and refining the first draft design</a></li>
   </ul>
 </nav>
     </div>
@@ -218,7 +217,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 2, 2026</p>
+      <p class="date">March 4, 2026</p>
     </div>
   </div>
   
@@ -254,20 +253,6 @@ window.Quarto = {
 <li>A known or assumed covariance structure for the errors, with parameters either fixed from prior work or chosen as a working model (e.g., AR(1) with known <span class="math inline">\(\rho\)</span>, exponential correlation with known range parameter).</li>
 </ul></li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>You may want to spend a bit of time showing how to decide on the linear model, identify the design space, etc.</p>
-<p>I find it helpful to link to different options from the Big Book of R (google it) to provide some of the background knowledge.</p>
-</div>
-</div>
 </section>
 <section id="data-and-model-requirements" class="level2" data-number="C.2">
 <h2 data-number="C.2" class="anchored" data-anchor-id="data-and-model-requirements"><span class="header-section-number">C.2</span> Data and model requirements</h2>
@@ -393,9 +378,19 @@ Note
 </ul></li>
 </ul>
 <p>The guide should surface these decision points explicitly and, where possible, offer heuristics or example defaults rather than pretending the choices are automatic.</p>
-</section>
-<section id="evaluating-and-refining-the-first-draft-design" class="level2" data-number="C.5">
-<h2 data-number="C.5" class="anchored" data-anchor-id="evaluating-and-refining-the-first-draft-design"><span class="header-section-number">C.5</span> Evaluating and refining the first draft design</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>When choosing a linear model, start with the simplest form that matches how you expect the mean to change (e.g., intercept + slope for roughly linear trends, add a quadratic term if you expect curvature), and define the design space as the times or locations you could realistically measure given logistics. ## Evaluating and refining the first draft design</p>
+</div>
+</div>
 <p>After running the search algorithm once, users will have a <strong>first draft</strong> design. At this stage, they should ask:</p>
 <ul>
 <li><strong>Does the design make scientific and logistical sense?</strong>

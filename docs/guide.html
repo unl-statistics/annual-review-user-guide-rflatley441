@@ -6,9 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2026-03-02">
+<meta name="dcterms.date" content="2026-03-04">
 
-<title>1&nbsp; Constructing D-Optimal Designs for Correlated Data – User Guide: Annual Review Article Topic</title>
+<title>2&nbsp; Constructing D-Optimal Designs for Correlated Data – Optimal Designs for Correlated Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -168,7 +168,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./guide.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Constructing D-Optimal Designs for Correlated Data</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./guide.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Constructing D-Optimal Designs for Correlated Data</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -183,7 +183,7 @@ window.Quarto = {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">User Guide: Annual Review Article Topic</a> 
+      <a href="./">Optimal Designs for Correlated Data</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -196,13 +196,13 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Assignment Flow</span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Optimal Designs for Correlated Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./guide.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Constructing D-Optimal Designs for Correlated Data</span></span></a>
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Constructing D-Optimal Designs for Correlated Data</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -250,20 +250,20 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">1.1</span> Prerequisites</a></li>
-  <li><a href="#workflow-overview" id="toc-workflow-overview" class="nav-link" data-scroll-target="#workflow-overview"><span class="header-section-number">1.2</span> Workflow overview</a></li>
-  <li><a href="#when-correlation-matters" id="toc-when-correlation-matters" class="nav-link" data-scroll-target="#when-correlation-matters"><span class="header-section-number">1.3</span> When correlation matters</a></li>
-  <li><a href="#data-and-design-points" id="toc-data-and-design-points" class="nav-link" data-scroll-target="#data-and-design-points"><span class="header-section-number">1.4</span> Data and design points</a></li>
-  <li><a href="#step-1.-formalize-the-model-and-design-space" id="toc-step-1.-formalize-the-model-and-design-space" class="nav-link" data-scroll-target="#step-1.-formalize-the-model-and-design-space"><span class="header-section-number">1.5</span> Step 1. Formalize the model and design space</a></li>
-  <li><a href="#step-2.-define-the-covariance-structure" id="toc-step-2.-define-the-covariance-structure" class="nav-link" data-scroll-target="#step-2.-define-the-covariance-structure"><span class="header-section-number">1.6</span> Step 2. Define the covariance structure</a></li>
-  <li><a href="#step-3.-construct-the-fisher-information-matrix-under-correlation" id="toc-step-3.-construct-the-fisher-information-matrix-under-correlation" class="nav-link" data-scroll-target="#step-3.-construct-the-fisher-information-matrix-under-correlation"><span class="header-section-number">1.7</span> Step 3. Construct the Fisher Information Matrix under correlation</a></li>
-  <li><a href="#step-4.-specify-the-space-of-exact-designs" id="toc-step-4.-specify-the-space-of-exact-designs" class="nav-link" data-scroll-target="#step-4.-specify-the-space-of-exact-designs"><span class="header-section-number">1.8</span> Step 4. Specify the space of exact designs</a></li>
-  <li><a href="#step-5.-search-for-d-optimal-designs" id="toc-step-5.-search-for-d-optimal-designs" class="nav-link" data-scroll-target="#step-5.-search-for-d-optimal-designs"><span class="header-section-number">1.9</span> Step 5. Search for D-optimal designs</a></li>
-  <li><a href="#step-6.-evaluate-and-compare-designs" id="toc-step-6.-evaluate-and-compare-designs" class="nav-link" data-scroll-target="#step-6.-evaluate-and-compare-designs"><span class="header-section-number">1.10</span> Step 6. Evaluate and compare designs</a></li>
-  <li><a href="#step-7.-document-and-export-the-design" id="toc-step-7.-document-and-export-the-design" class="nav-link" data-scroll-target="#step-7.-document-and-export-the-design"><span class="header-section-number">1.11</span> Step 7. Document and export the design</a></li>
-  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources"><span class="header-section-number">1.12</span> Additional resources</a></li>
-  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility"><span class="header-section-number">1.13</span> Reproducibility</a></li>
-  <li><a href="#summary-and-practical-tips" id="toc-summary-and-practical-tips" class="nav-link" data-scroll-target="#summary-and-practical-tips"><span class="header-section-number">1.14</span> Summary and practical tips</a></li>
+  <li><a href="#prerequisites" id="toc-prerequisites" class="nav-link active" data-scroll-target="#prerequisites"><span class="header-section-number">2.1</span> Prerequisites</a></li>
+  <li><a href="#workflow-overview" id="toc-workflow-overview" class="nav-link" data-scroll-target="#workflow-overview"><span class="header-section-number">2.2</span> Workflow overview</a></li>
+  <li><a href="#when-correlation-matters" id="toc-when-correlation-matters" class="nav-link" data-scroll-target="#when-correlation-matters"><span class="header-section-number">2.3</span> When correlation matters</a></li>
+  <li><a href="#data-and-design-points" id="toc-data-and-design-points" class="nav-link" data-scroll-target="#data-and-design-points"><span class="header-section-number">2.4</span> Data and design points</a></li>
+  <li><a href="#step-1.-formalize-the-model-and-design-space" id="toc-step-1.-formalize-the-model-and-design-space" class="nav-link" data-scroll-target="#step-1.-formalize-the-model-and-design-space"><span class="header-section-number">2.5</span> Step 1. Formalize the model and design space</a></li>
+  <li><a href="#step-2.-define-the-covariance-structure" id="toc-step-2.-define-the-covariance-structure" class="nav-link" data-scroll-target="#step-2.-define-the-covariance-structure"><span class="header-section-number">2.6</span> Step 2. Define the covariance structure</a></li>
+  <li><a href="#step-3.-construct-the-fisher-information-matrix-under-correlation" id="toc-step-3.-construct-the-fisher-information-matrix-under-correlation" class="nav-link" data-scroll-target="#step-3.-construct-the-fisher-information-matrix-under-correlation"><span class="header-section-number">2.7</span> Step 3. Construct the Fisher Information Matrix under correlation</a></li>
+  <li><a href="#step-4.-specify-the-space-of-exact-designs" id="toc-step-4.-specify-the-space-of-exact-designs" class="nav-link" data-scroll-target="#step-4.-specify-the-space-of-exact-designs"><span class="header-section-number">2.8</span> Step 4. Specify the space of exact designs</a></li>
+  <li><a href="#step-5.-search-for-d-optimal-designs" id="toc-step-5.-search-for-d-optimal-designs" class="nav-link" data-scroll-target="#step-5.-search-for-d-optimal-designs"><span class="header-section-number">2.9</span> Step 5. Search for D-optimal designs</a></li>
+  <li><a href="#step-6.-evaluate-and-compare-designs" id="toc-step-6.-evaluate-and-compare-designs" class="nav-link" data-scroll-target="#step-6.-evaluate-and-compare-designs"><span class="header-section-number">2.10</span> Step 6. Evaluate and compare designs</a></li>
+  <li><a href="#step-7.-document-and-export-the-design" id="toc-step-7.-document-and-export-the-design" class="nav-link" data-scroll-target="#step-7.-document-and-export-the-design"><span class="header-section-number">2.11</span> Step 7. Document and export the design</a></li>
+  <li><a href="#additional-resources" id="toc-additional-resources" class="nav-link" data-scroll-target="#additional-resources"><span class="header-section-number">2.12</span> Additional resources</a></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility"><span class="header-section-number">2.13</span> Reproducibility</a></li>
+  <li><a href="#summary-and-practical-tips" id="toc-summary-and-practical-tips" class="nav-link" data-scroll-target="#summary-and-practical-tips"><span class="header-section-number">2.14</span> Summary and practical tips</a></li>
   </ul>
 </nav>
     </div>
@@ -272,7 +272,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Constructing D-Optimal Designs for Correlated Data</span></h1>
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Constructing D-Optimal Designs for Correlated Data</span></h1>
 </div>
 
 
@@ -283,7 +283,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 2, 2026</p>
+      <p class="date">March 4, 2026</p>
     </div>
   </div>
   
@@ -298,8 +298,8 @@ window.Quarto = {
 <p>This user guide focuses on constructing D-optimal exact designs for linear regression models with correlated observations when the covariance structure is known. Unlike classical optimal design problems with independent errors, correlated data require modifying the Fisher Information Matrix (FIM) and abandoning continuous design theory. The guide provides a step-by-step workflow that pairs the underlying ideas with practical R implementation—so readers with a working knowledge of R can identify, compute, and evaluate D-optimal designs in their own setting <span class="citation" data-cites="LopezFidalgoWong2026">(<a href="references.html#ref-LopezFidalgoWong2026" role="doc-biblioref">López-Fidalgo and Wong 2026</a>)</span>.</p>
 <p>What you will learn: how to recognize when correlation invalidates standard design tools; how to write down the linear model and design space in R; how to turn a correlation model (e.g., AR(1), exponential in time or space) into a covariance matrix <span class="math inline">\(\Sigma(\xi)\)</span>; how to build the FIM <span class="math inline">\(M(\xi) = X(\xi)^\top \Sigma(\xi)^{-1} X(\xi)\)</span> and why it differs from the usual <span class="math inline">\(X^\top X\)</span>; how to search over candidate exact designs to (approximately) maximize <span class="math inline">\(\det M(\xi)\)</span>; and how to evaluate designs via relative D-efficiency when equivalence theorems no longer apply.</p>
 <p>Scope: We assume a linear model with normally distributed, homoscedastic responses and a known correlation structure. The design space is a user-specified compact set of candidate points (e.g., a finite grid of times or spatial locations). We do not cover nonlinear models (where the FIM depends on unknown parameters), model discrimination (KL-optimality), or general virtual-noise algorithms—only the core D-optimal exact-design case.</p>
-<section id="prerequisites" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">1.1</span> Prerequisites</h2>
+<section id="prerequisites" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="prerequisites"><span class="header-section-number">2.1</span> Prerequisites</h2>
 <ul>
 <li>Software: A working installation of R (e.g., R 4.x) and an editor or IDE (RStudio, VS Code, or similar). Ability to run scripts and install packages if needed.</li>
 <li>R skills: Comfort writing small R functions, using vectors and matrices, and inspecting output (e.g., <code>summary()</code>, printing matrices).</li>
@@ -307,8 +307,8 @@ window.Quarto = {
 </ul>
 <p>For a more detailed breakdown of conceptual and problem-specific prerequisites, see the Task Analysis appendix.</p>
 </section>
-<section id="workflow-overview" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="workflow-overview"><span class="header-section-number">1.2</span> Workflow overview</h2>
+<section id="workflow-overview" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="workflow-overview"><span class="header-section-number">2.2</span> Workflow overview</h2>
 <p>The guide is organized into seven steps, in order:</p>
 <ol type="1">
 <li>Formalize the model and design space: Write down the linear model and candidate design points; build <span class="math inline">\(X(\xi)\)</span> in R.</li>
@@ -321,36 +321,36 @@ window.Quarto = {
 </ol>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 29%">
 <col style="width: 37%">
+<col style="width: 29%">
 <col style="width: 33%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Input</th>
 <th>Process</th>
+<th>Input</th>
 <th>Output</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>Linear model, design space <span class="math inline">\(\mathcal{X}\)</span>, covariance structure</td>
 <td>Steps 1–4: Build <span class="math inline">\(X(\xi)\)</span>, <span class="math inline">\(\Sigma(\xi)\)</span>, <span class="math inline">\(\log\det M(\xi)\)</span></td>
+<td>Linear model, design space <span class="math inline">\(\mathcal{X}\)</span>, covariance structure</td>
 <td>Criterion function to maximize</td>
 </tr>
 <tr class="even">
-<td>Criterion function, grid, sample size <span class="math inline">\(n\)</span></td>
 <td>Step 5: Exchange search (and restarts)</td>
+<td>Criterion function, grid, sample size <span class="math inline">\(n\)</span></td>
 <td>Approximate D-optimal exact design</td>
 </tr>
 <tr class="odd">
-<td>Optimal design, baseline design</td>
 <td>Step 6: Relative D-efficiency, SEs</td>
+<td>Optimal design, baseline design</td>
 <td>Comparison and diagnostics</td>
 </tr>
 <tr class="even">
-<td>Final design</td>
 <td>Step 7: Table and code</td>
+<td>Final design</td>
 <td>Reproducible design for the experiment</td>
 </tr>
 </tbody>
@@ -370,8 +370,8 @@ window.Quarto = {
 </div>
 <hr>
 </section>
-<section id="when-correlation-matters" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="when-correlation-matters"><span class="header-section-number">1.3</span> When correlation matters</h2>
+<section id="when-correlation-matters" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="when-correlation-matters"><span class="header-section-number">2.3</span> When correlation matters</h2>
 <p>Why would you want to complete this task? If you are planning a study with correlated observations (e.g., repeated measurements over time, spatial sampling, or clustered data), choosing when and where to measure using standard “independent errors” design tools can waste a large fraction of your information. Efficiency can drop to single-digit percentages when the true process is correlated but the design was chosen under an independence assumption. This guide gives you a practical workflow to construct designs that account for correlation, so you can get more precise parameter estimates—or the same precision with fewer observations—in settings where correlation matters.</p>
 <p>For uncorrelated observations, the Fisher Information Matrix is additive over design points and, for a continuous design <span class="math inline">\(\xi\)</span>, takes the familiar form that leads to <span class="math inline">\(X^\top X\)</span> (up to a scale) for exact designs. Optimal design theory then enjoys convexity and the General Equivalence Theorem (GET), which certifies optimality via directional derivatives.</p>
 <p>For correlated observations, the FIM is nonadditive and depends on the exact design <span class="math inline">\(\xi\)</span> and its covariance structure <span class="math inline">\(\Sigma(\xi)\)</span>. It is defined as</p>
@@ -379,13 +379,13 @@ window.Quarto = {
 <p>where <span class="math inline">\(f(x)\)</span> (or <span class="math inline">\(X\)</span>) is the <span class="math inline">\(n\times p\)</span> mean response structure (design matrix), and <span class="math inline">\(\Sigma(\xi)\)</span> is the <span class="math inline">\(n\times n\)</span> covariance matrix of the observations under design <span class="math inline">\(\xi\)</span>, with entries driven by the correlation between design points. Once correlation is present, continuous design theory and the GET no longer apply in the same way; you must work with exact designs (finite sets of points with integer replication) and rely on computational search rather than a closed-form optimality check <span class="citation" data-cites="LopezFidalgoWong2026">(<a href="references.html#ref-LopezFidalgoWong2026" role="doc-biblioref">López-Fidalgo and Wong 2026</a>)</span>. Ignoring correlation can be costly—e.g., efficiency can drop to single-digit percentages when the true process is correlated but the design was chosen under an independence assumption.</p>
 <hr>
 </section>
-<section id="data-and-design-points" class="level2" data-number="1.4">
-<h2 data-number="1.4" class="anchored" data-anchor-id="data-and-design-points"><span class="header-section-number">1.4</span> Data and design points</h2>
+<section id="data-and-design-points" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="data-and-design-points"><span class="header-section-number">2.4</span> Data and design points</h2>
 <p>This guide does not use a single fixed dataset; instead, the “data” are synthetic design points that represent where and how many times you will observe. In the running example we use a one-dimensional grid of times (e.g., 0 to 10 in steps of 0.5) as the candidate design space. Each design point is a time (or spatial location) at which you plan to take a measurement; replications correspond to repeated observations at the same point. You should replace the example grid with your own feasible set of times or locations (e.g., from study protocol or logistical constraints). The methods assume that responses will be approximately normally distributed with homoscedastic variance and that the covariance structure (e.g., AR(1) or exponential) is known or fixed from prior work or a pilot study.</p>
 <hr>
 </section>
-<section id="step-1.-formalize-the-model-and-design-space" class="level2" data-number="1.5">
-<h2 data-number="1.5" class="anchored" data-anchor-id="step-1.-formalize-the-model-and-design-space"><span class="header-section-number">1.5</span> Step 1. Formalize the model and design space</h2>
+<section id="step-1.-formalize-the-model-and-design-space" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="step-1.-formalize-the-model-and-design-space"><span class="header-section-number">2.5</span> Step 1. Formalize the model and design space</h2>
 <p>Write down the linear model</p>
 <p><span class="math display">\[
 y = X(\xi)\beta + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2 \Sigma(\xi)),
@@ -426,8 +426,8 @@ attr(,"assign")
 <p>You should now be able to plug in your own regression basis and candidate grid and build <span class="math inline">\(X(\xi)\)</span> for any proposed design vector.</p>
 <hr>
 </section>
-<section id="step-2.-define-the-covariance-structure" class="level2" data-number="1.6">
-<h2 data-number="1.6" class="anchored" data-anchor-id="step-2.-define-the-covariance-structure"><span class="header-section-number">1.6</span> Step 2. Define the covariance structure</h2>
+<section id="step-2.-define-the-covariance-structure" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="step-2.-define-the-covariance-structure"><span class="header-section-number">2.6</span> Step 2. Define the covariance structure</h2>
 <p>Choose a parametric correlation model so that, for any set of design points, you can form the covariance matrix <span class="math inline">\(\Sigma(\xi)\)</span>. The review discusses several positive-definite families <span class="citation" data-cites="LopezFidalgoWong2026">(<a href="references.html#ref-LopezFidalgoWong2026" role="doc-biblioref">López-Fidalgo and Wong 2026</a>)</span>; two common choices are:</p>
 <ul>
 <li>Exponential (with optional nugget): <span class="math inline">\(C(d) = \sigma^2\bigl(\nu\,\mathbf{1}_{\{d=0\}} + (1-\nu)\, e^{-d/\phi}\bigr)\)</span>, where <span class="math inline">\(d\)</span> is distance (in time or space), <span class="math inline">\(\phi\)</span> is the range, and <span class="math inline">\(\nu\)</span> is the nugget (variance at zero distance). The nugget helps avoid singular or ill-conditioned <span class="math inline">\(\Sigma\)</span> and can prevent optimal designs from collapsing to too few distinct points.</li>
@@ -461,8 +461,8 @@ attr(,"assign")
 <p>You should now be able to pass any vector of design points to your covariance function and obtain a valid <span class="math inline">\(\Sigma(\xi)\)</span>.</p>
 <hr>
 </section>
-<section id="step-3.-construct-the-fisher-information-matrix-under-correlation" class="level2" data-number="1.7">
-<h2 data-number="1.7" class="anchored" data-anchor-id="step-3.-construct-the-fisher-information-matrix-under-correlation"><span class="header-section-number">1.7</span> Step 3. Construct the Fisher Information Matrix under correlation</h2>
+<section id="step-3.-construct-the-fisher-information-matrix-under-correlation" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="step-3.-construct-the-fisher-information-matrix-under-correlation"><span class="header-section-number">2.7</span> Step 3. Construct the Fisher Information Matrix under correlation</h2>
 <p>The FIM for the correlated linear model is</p>
 <p>[ M() = X()<sup>()</sup>{-1} X(). ]</p>
 <p>Compute it in R using the Cholesky factorization of <span class="math inline">\(\Sigma(\xi)\)</span> so you never form <span class="math inline">\(\Sigma^{-1}\)</span> explicitly (more stable and faster). Then define a function that returns <span class="math inline">\(\log\det M(\xi)\)</span>, which is what we will maximize (equivalent to maximizing <span class="math inline">\(\det M(\xi)\)</span> and more stable numerically).</p>
@@ -492,8 +492,8 @@ attr(,"assign")
 <p>You should now be able to evaluate <span class="math inline">\(\log\det M(\xi)\)</span> for any design; this function is what the search in Step 5 will maximize.</p>
 <hr>
 </section>
-<section id="step-4.-specify-the-space-of-exact-designs" class="level2" data-number="1.8">
-<h2 data-number="1.8" class="anchored" data-anchor-id="step-4.-specify-the-space-of-exact-designs"><span class="header-section-number">1.8</span> Step 4. Specify the space of exact designs</h2>
+<section id="step-4.-specify-the-space-of-exact-designs" class="level2" data-number="2.8">
+<h2 data-number="2.8" class="anchored" data-anchor-id="step-4.-specify-the-space-of-exact-designs"><span class="header-section-number">2.8</span> Step 4. Specify the space of exact designs</h2>
 <p>An exact design is a finite set of design points with integer replication counts—i.e., a multiset of points from your candidate grid whose total size equals your sample size <span class="math inline">\(n\)</span>. In code, represent it as a vector of length <span class="math inline">\(n\)</span> of design points (replications = repeated entries). The design space is the set of all such vectors whose entries lie in your candidate grid <span class="math inline">\(\mathcal{X}\)</span>.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">10</span>, <span class="at">by =</span> <span class="fl">0.5</span>)</span>
@@ -512,8 +512,8 @@ attr(,"assign")
 <p>You can also represent the design as a vector of replication counts over the grid (one count per grid point, summing to <span class="math inline">\(n\)</span>); the indexing representation is convenient for swapping one point at a time during the exchange algorithm. <code>annotated_r_example.R</code> uses the same representation and provides <code>random_design()</code> and <code>baseline_design()</code> (e.g.&nbsp;roughly equally spaced) for initialization.</p>
 <hr>
 </section>
-<section id="step-5.-search-for-d-optimal-designs" class="level2" data-number="1.9">
-<h2 data-number="1.9" class="anchored" data-anchor-id="step-5.-search-for-d-optimal-designs"><span class="header-section-number">1.9</span> Step 5. Search for D-optimal designs</h2>
+<section id="step-5.-search-for-d-optimal-designs" class="level2" data-number="2.9">
+<h2 data-number="2.9" class="anchored" data-anchor-id="step-5.-search-for-d-optimal-designs"><span class="header-section-number">2.9</span> Step 5. Search for D-optimal designs</h2>
 <p>Because the General Equivalence Theorem does not apply, we search over exact designs by iteratively improving <span class="math inline">\(\log\det M(\xi)\)</span>. A simple and effective approach is an exchange algorithm <span class="citation" data-cites="LopezFidalgoWong2026">(<a href="references.html#ref-LopezFidalgoWong2026" role="doc-biblioref">López-Fidalgo and Wong 2026</a>)</span>:</p>
 <ol type="1">
 <li>Input: Initial design <span class="math inline">\(\xi^{(0)}\)</span> (e.g., random or evenly spread), tolerance <span class="math inline">\(\tau\)</span>.</li>
@@ -574,8 +574,8 @@ attr(,"assign")
 <p>For larger problems, use a coarser grid for the inner “best swap” search, or use metaheuristics (e.g., simulated annealing, genetic algorithms) as discussed in the review <span class="citation" data-cites="LopezFidalgoWong2026">(<a href="references.html#ref-LopezFidalgoWong2026" role="doc-biblioref">López-Fidalgo and Wong 2026</a>)</span>. The script <code>annotated_r_example.R</code> implements <code>exchange_search()</code> (one-point-at-a-time swaps over the candidate set) and <code>multi_start_search()</code> (multiple random restarts) so you can run the same algorithm from the command line and tune <code>n_restarts</code> and <code>max_iter_per_restart</code> in the “User settings” block.</p>
 <hr>
 </section>
-<section id="step-6.-evaluate-and-compare-designs" class="level2" data-number="1.10">
-<h2 data-number="1.10" class="anchored" data-anchor-id="step-6.-evaluate-and-compare-designs"><span class="header-section-number">1.10</span> Step 6. Evaluate and compare designs</h2>
+<section id="step-6.-evaluate-and-compare-designs" class="level2" data-number="2.10">
+<h2 data-number="2.10" class="anchored" data-anchor-id="step-6.-evaluate-and-compare-designs"><span class="header-section-number">2.10</span> Step 6. Evaluate and compare designs</h2>
 <p>Evaluate the chosen design by (i) reporting <span class="math inline">\(\log\det M(\xi)\)</span>, (ii) comparing to a baseline (e.g., equally spaced or uniform random) via relative D-efficiency, and (iii) optionally inspecting approximate standard errors for <span class="math inline">\(\beta\)</span>.</p>
 <p>Relative D-efficiency of design <span class="math inline">\(\xi\)</span> versus a reference design <span class="math inline">\(\xi_0\)</span> is</p>
 <p><span class="math display">\[
@@ -607,8 +607,8 @@ attr(,"assign")
 <p>Optionally, plot the design (e.g., sampling times or locations) to check that it is scientifically and practically reasonable. In <code>annotated_r_example.R</code>, <code>relative_D_efficiency()</code> implements the same formula for any two designs, and the script prints baseline vs.&nbsp;best design and their relative D-efficiencies; it also includes optional plots of the criterion trajectory and the selected design points (with replications stacked for visibility).</p>
 <hr>
 </section>
-<section id="step-7.-document-and-export-the-design" class="level2" data-number="1.11">
-<h2 data-number="1.11" class="anchored" data-anchor-id="step-7.-document-and-export-the-design"><span class="header-section-number">1.11</span> Step 7. Document and export the design</h2>
+<section id="step-7.-document-and-export-the-design" class="level2" data-number="2.11">
+<h2 data-number="2.11" class="anchored" data-anchor-id="step-7.-document-and-export-the-design"><span class="header-section-number">2.11</span> Step 7. Document and export the design</h2>
 <p>Summarize the chosen design in a table or data frame suitable for running the experiment, and record the R code and parameter settings so the process is reproducible.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>design_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
@@ -638,7 +638,7 @@ attr(,"assign")
 </div>
 </div>
 <p>The table above lists each distinct <strong>design point</strong> (time or location) and its <strong>replications</strong> (how many observations to take at that point). Use it when running the experiment: schedule that many measurements at each listed point. Save the design and key inputs (grid, sample size, covariance parameters, criterion value) to a file or script so you can reproduce the design later. <code>annotated_r_example.R</code> ends by building a <code>final_design_table</code> (design points and replicate counts) and printing it for use when running the experiment; you can write that table to CSV or incorporate it into your study protocol.</p>
-<p>Figure <a href="#fig-design-visualization" class="quarto-xref">Figure&nbsp;<span>1.1</span></a> helps you check that the selected design is practically reasonable (e.g., not overly clustered at one end of the grid). Below, the gray ticks show the candidate grid; filled points show the chosen design, with replications stacked vertically at each location.</p>
+<p>Figure <a href="#fig-design-visualization" class="quarto-xref">Figure&nbsp;<span>2.1</span></a> helps you check that the selected design is practically reasonable (e.g., not overly clustered at one end of the grid). Below, the gray ticks show the candidate grid; filled points show the chosen design, with replications stacked vertically at each location.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(grid, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="fu">length</span>(grid)), <span class="at">pch =</span> <span class="dv">3</span>, <span class="at">col =</span> <span class="st">"gray80"</span>,</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">"Design point (e.g., time)"</span>, <span class="at">ylab =</span> <span class="st">""</span>,</span>
@@ -656,7 +656,7 @@ attr(,"assign")
 <img src="guide_files/figure-html/fig-design-visualization-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-design-visualization-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1.1: Selected design points (replications shown by vertical stack). Gray ticks are the candidate grid.
+Figure&nbsp;2.1: Selected design points (replications shown by vertical stack). Gray ticks are the candidate grid.
 </figcaption>
 </figure>
 </div>
@@ -664,8 +664,8 @@ Figure&nbsp;1.1: Selected design points (replications shown by vertical stack). 
 </div>
 <hr>
 </section>
-<section id="additional-resources" class="level2" data-number="1.12">
-<h2 data-number="1.12" class="anchored" data-anchor-id="additional-resources"><span class="header-section-number">1.12</span> Additional resources</h2>
+<section id="additional-resources" class="level2" data-number="2.12">
+<h2 data-number="2.12" class="anchored" data-anchor-id="additional-resources"><span class="header-section-number">2.12</span> Additional resources</h2>
 <ul>
 <li><strong>López-Fidalgo and Wong</strong> <span class="citation" data-cites="LopezFidalgoWong2026">(<a href="references.html#ref-LopezFidalgoWong2026" role="doc-biblioref">López-Fidalgo and Wong 2026</a>)</span>: The review this guide is based on; it covers theory, other optimality criteria, and metaheuristic search in more depth.</li>
 <li><strong>Optimal design in general:</strong> Introductory texts on experimental design (e.g., Atkinson and Donev <span class="citation" data-cites="AtkinsonDonev1992">(<a href="references.html#ref-AtkinsonDonev1992" role="doc-biblioref">Atkinson, Donev, and Tobias 2007</a>)</span>) explain D-optimality and exchange algorithms for uncorrelated data; the formulas here extend those ideas to the correlated case.</li>
@@ -674,13 +674,13 @@ Figure&nbsp;1.1: Selected design points (replications shown by vertical stack). 
 </ul>
 <hr>
 </section>
-<section id="reproducibility" class="level2" data-number="1.13">
-<h2 data-number="1.13" class="anchored" data-anchor-id="reproducibility"><span class="header-section-number">1.13</span> Reproducibility</h2>
+<section id="reproducibility" class="level2" data-number="2.13">
+<h2 data-number="2.13" class="anchored" data-anchor-id="reproducibility"><span class="header-section-number">2.13</span> Reproducibility</h2>
 <p>This guide was prepared so it can be run on another machine with R and Quarto installed. To reproduce the report: install <a href="https://www.r-project.org/">R</a> (tested with R 4.x), install <a href="https://quarto.org/">Quarto</a>, then in the project directory run <code>quarto render .</code> (or use <strong>Build</strong> in RStudio). All code in this document uses base R only; no extra packages are required. You can also run the standalone script <code>annotated_r_example.R</code> in R to reproduce the full workflow (edit the “User settings” block at the top for your own model and design space).</p>
 <hr>
 </section>
-<section id="summary-and-practical-tips" class="level2" data-number="1.14">
-<h2 data-number="1.14" class="anchored" data-anchor-id="summary-and-practical-tips"><span class="header-section-number">1.14</span> Summary and practical tips</h2>
+<section id="summary-and-practical-tips" class="level2" data-number="2.14">
+<h2 data-number="2.14" class="anchored" data-anchor-id="summary-and-practical-tips"><span class="header-section-number">2.14</span> Summary and practical tips</h2>
 <ul>
 <li>Design space: Keep the candidate grid <span class="math inline">\(\mathcal{X}\)</span> compact and aligned with feasible times or locations; very dense grids increase run time.</li>
 <li>Covariance: Use a nugget if <span class="math inline">\(\Sigma(\xi)\)</span> is ill-conditioned; it also helps avoid designs that collapse to too few distinct points.</li>
@@ -1110,8 +1110,8 @@ Posit PBC. 2024. <span>“Creating a Book.”</span> <a href="https://quarto.org
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link" aria-label="Assignment Flow">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Assignment Flow</span>
+      <a href="./index.html" class="pagination-link" aria-label="Optimal Designs for Correlated Data">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Optimal Designs for Correlated Data</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">

@@ -1,30 +1,5 @@
-# Assignment Flow {.unnumbered}
+---
+title: "Optimal Designs for Correlated Data"
+---
 
-This project is set up to scaffold this user guide and set you up for success.
-
-Start at `topic.qmd` and identify a topic for your user guide.
-
-Once you've proposed a topic and received my approval/feedback, you can convert the contents of `topic.qmd` into an introductory paragraph in your report. Please leave the `topic.qmd` file as an appendix, to document the different stages of this project. 
-
-Once we've agreed on a topic for your user guide, you will proceed to `needs.qmd` and `task-analysis.qmd`. Both will be submitted at the same check-in, and both will be included in your final report as appendices. 
-You should be able to re-purpose most of the information in `task-analysis.qmd` to orient the user to different components of the task you've chosen.
-
-Your next step is to actually write the content that satisfies the work you outlined in `task-analysis.qmd`. 
-
-Once you're finished with that, ideally, you'll have plenty of time to edit and streamline your report. 
-Feel free to trade reports with a friend and try to complete your friend's task - this will help you both identify areas where the guide isn't as clear. 
-Try to complete the task with a different data set - that often helps find trouble spots.
-
-
-When you submit your final report, you may remove `index.qmd` from the `_quarto.yml` file, which will remove this chapter (which is quite unnecessary for your user) from the report. 
-You should also take the time to make sure your name is listed as both author and copyright holder in the `_quarto.yml` file. 
-Feel free to make a custom cover for your manual if you would like to do so. 
-You can also tweak the CSS/theme for the book, so long as you're conscious of accessibility concerns. 
-
-::: callout-caution
-## Building the report
-
-If you are using RStudio to complete this report, you can hit (Ctrl/Cmd)-Shift-B to build the whole report. You can also type `quarto render .` on the command line in the project folder to accomplish the same thing.
-
-If you have questions about how to customize or debug your book, it may be helpful to start at the quarto book documentation [@positpbcCreatingBook2024]. 
-:::
+Welcome to my annual user guide for the report Optimal Designs for Correlated Data. I hope you enjoy! 
