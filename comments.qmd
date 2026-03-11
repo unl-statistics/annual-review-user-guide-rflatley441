@@ -1,0 +1,43 @@
+# Ryan Flatley
+
+- Good use of appropriate sectioning. It might be better to set up an Intro (2.1-2.4), Constucting D-Optimal Designs (2.5-2.11), and Conclusion/Summary/Additional Resources (2.12-14) as separate chapters. You can put the introduction into the index.qmd file to get rid of the weird Ch. 1, and then restructure the others so that each one is in its own file.
+
+- It would be good to make some use of bulleted lists, especially in the "what you will learn" and "scope" sections. You might even want to use a callout box that is visually appealing and breaks up the text a bit for one of them. (https://alg.manifoldapp.org/read/open-technical-communication/section/15d19d46-ad79-4cec-bb8d-be6166bb3d8e -- special notices, lists, instructional design)
+
+- Giving each step a label will allow you to use cross-links in your document in section 2.2, which will give you a much more polished appearance. https://quarto.org/docs/authoring/cross-references.html
+
+- The table in Sec 2.2 might be better as a diagram with inputs and outputs specified, so that the output of steps 1-4 feeds into step 5, the output of step 5 feeds into step 6, and so on.
+
+- You can link to the annotated R script file using a hyperlink, which would be easier for the readers.
+
+- The equation in sec 2.3 ("For correlated observations... It is defined as [equation]") does not seem to render correctly. Please check the LaTeX and the rendered version on your machine. See [Screenshot_20260311_151939.png](Screenshot_20260311_151939.png) for what it looks like on my machine.
+
+
+- You don't need horizontal lines between each section -- that may be helpful in markdown (so put it in a comment -- HTML style), but it's not that useful in HTML. What would be better is to make sure that you're demonstrating each concept and that there's enough material for a section. So, can you show visually what replications look like in a design? The edibble package (https://edibble.emitanaka.org) might help with visualizing this, but you could also show e.g. a spatial field and replications as z-axis? Something like this? https://excalidraw.com/#json=YDLkW7fzWdnm42TX7DLmX,scHxlX4YDoWUFyJsmdCuUA
+
+- Visuals for optimality --
+    - https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/10.1002/cem.3525 has a nice illustration of D vs episilon vs. A optimality, but I don't think it's quite relevant?
+
+    - https://019b3792-57f4-a3de-ac58-0c0fd48f50dc.share.connect.posit.cloud/doe2.html#optimal-designs -- might be a reasonable thing to show?
+
+- I'd like to see a bit more on 2.4 -- show the generated data, explain what each variable is and what it means, etc.
+
+- 2.6 - It might be helpful to define new terms as an ::: aside block (like nugget) so they'll show up in the right-hand column.
+
+- 2.6 - checking for positive definiteness should probably happen in the make_Sigma function since that's usually a required condition. stopifnot() can be a useful error handling function or you can of course use tryCatch() if you want to be a bit more fancy.
+
+- 2.7 - Citing the choice of using Cholesky factorization so that you don't form sigma^{-1} would be helpful -- but good call on the numerical stability! You're definitely making some additional assumptions about your user base that aren't mentioned in the prerequisites section, though, so at least give people the opportunity to get un-confused :).
+
+- 2.7, 2.8 - every time you mention the annotated_r_example.R, you should instead link to the file. Or, better yet, put the code in that file into the guide as an extended example (or two) and annotate it so that it's making use of literate programming.
+
+- 2.9 - any time you're searching over a grid, you should include some guidelines on how many points might be too many or what the optimal search strategy is for certain orders of magnitude of points. You should also talk about the advantages of the exchange_search vs. multi_start_search and how to know when you've got a reasonable answer. Do users need to run multiple times with different seeds? Should they plot results to ensure convergence as is required when doing MCMC with multiple chains?
+
+- 2.12 - Use in-text citations when you're including a citation in parentheses to avoid nested parentheses, which can be confusing.
+
+- 2.13 - Bulleted list, please.
+
+- 2.14 - make sure you define ill-conditioned early-on and explain how to know if something is ill-conditioned, and also how to choose an appropriate nugget (assuming there's some choice there?)
+
+Overall, very good job -- I tend to be able to give more specific comments and critiques the more effort people put into something, so please don't infer from the comments that this wasn't well done.
+
+I'd like to see a few more graphs or diagrams, particularly earlier in the report when it's just writing and equations - it's important to break things up a bit visually, or people get bored and just glaze over.
